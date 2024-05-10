@@ -15,6 +15,13 @@ export default [
       "no-unused-vars": "warn",
       "no-undef": "warn",
     },
-    ignores: ["node_modules/", "dist/", "eslint.config.js", ".env", "src/main.js", "vite.config.js", "svelte.config.js" ],
+    ignores: [
+      "node_modules/",
+      "dist/", 
+      "eslint.config.js", 
+      "src/main.js", 
+      "vite.config.js", 
+      "svelte.config.js"
+    ],
   },
 ];
