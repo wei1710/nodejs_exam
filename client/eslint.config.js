@@ -22,7 +22,6 @@ export default [
       "src/main.js",
       "vite.config.js",
       "svelte.config.js",
-      "eslint.config.js",
     ],
   },
 ];
