@@ -15,11 +15,18 @@ export default [
     rules: {
       indent: ["error", 2],
       "linebreak-style": ["error", "windows"],
-      quotes: ["error", "double"],
+      quotes: [
+        "error",
+        "double",
+        {
+          avoidEscape: true,
+          allowTemplateLiterals: true,
+        },
+      ],
       semi: ["error", "always"],
       "no-unused-vars": "warn",
       "no-undef": "warn",
     },
-    ignores: ["node_modules/", "dist/", "eslint.config.js", ".env"]
+    ignores: ["node_modules/", "dist/", "eslint.config.js", ".env"],
   },
 ];
