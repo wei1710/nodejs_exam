@@ -56,5 +56,9 @@ app.use("/api/logins", loginRateLimiter);
 import authsRouter from "./routers/authsRouter.js";
 app.use(authsRouter);
 
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve("../client/dist/index.html"));
+});
+
 const PORT = process.env.SERVER_PORT;
 app.listen(PORT, () => console.log("Server is running on port", PORT));
