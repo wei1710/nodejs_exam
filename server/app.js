@@ -21,37 +21,9 @@ liveReloadServer.server.once("connection", () => {
 
 app.use(connectLivereload());
 
-import session from "express-session";
-
-app.use(session({
-  secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: false,
-  cookie: { 
-    secure: false,
-    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-  },
-}));
-
-import { rateLimit } from "express-rate-limit";
-
-// IP rate limit
-const ipRateLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 50, // Limit each IP to 50 requests per 15 minutes
-  message: "Too many requests from this IP. Please try again later!",
-});
-
-app.use(ipRateLimiter);
-
-// Login rate limit
-const loginRateLimiter = rateLimit({
-  windowMs: 10 * 60 * 1000, // 10 minutes
-  max: 5, // Allow 5 login attempts
-  message: "Too many login attempts. Please try again later!",
-});
-
-app.use("/api/logins", loginRateLimiter);
+import { sessionMiddleware, ipRateLimiter, loginRateLimiter } from "./util/security/middleware.js";
+app.use(sessionMiddleware, ipRateLimiter);
+app.use("/api/login", loginRateLimiter);
 
 import authsRouter from "./routers/authsRouter.js";
 app.use(authsRouter);

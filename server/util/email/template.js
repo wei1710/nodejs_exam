@@ -96,6 +96,12 @@ const emailVerifiedTemplate = `
 </html>
 `;
 
-const resetPasswordEmailTemplate = ``;
+const resetPasswordEmailTemplate = (username, resetLink) => `
+<p>Hello ${username},
+if your forgot your password you can reset it! 
+Please click the button below to reset your password.</p>
+<a href="${resetLink}" style="padding: 10px 20px; 
+background-color: #4CAF50; color: white; text-decoration: none; 
+border-radius: 5px;">Reset Password</a>`;
 
 export { verifyEmailTemplate, expiredVerifyEmailTemplate, emailVerifiedTemplate, resetPasswordEmailTemplate };

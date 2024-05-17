@@ -1,15 +1,15 @@
 import { Router } from "express";
 import bcrypt from "bcrypt";
 import db from "../database/connection.js";
-import { generateUniqueIdentifier } from "../util/generator.js";
-import { validateUsername, validatePassword, validateEmail } from "../util/regex.js";
+import { generateUniqueIdentifier } from "../util/security/generator.js";
+import { validateUsername, validatePassword, validateEmail } from "../util/security/regex.js";
 import "dotenv/config";
 import {
   verifyEmailTemplate,
   expiredVerifyEmailTemplate,
   emailVerifiedTemplate,
   resetPasswordEmailTemplate,
-} from "../util/email/htmlTemplates.js";
+} from "../util/email/template.js";
 const router = Router();
 
 import { Resend } from "resend";
@@ -122,8 +122,7 @@ router.get("/api/verify", async (req, res) => {
 
     if (verification_key === `verify_${uid}`) {
       await db.users.updateOne({ verification_token: uid }, { $set: { verified: true } });
-    
-      
+
       return res.status(200).send(emailVerifiedTemplate);
     } else {
       return res.status(400).json({ error: "Invalid token!" });
@@ -174,6 +173,99 @@ router.post("/api/login", async (req, res) => {
     }
   } catch (error) {
     console.error("Error comparing passwords: ", error + " !");
+    return res.status(500).json({ error: "Internal server error!" });
+  }
+});
+
+//-- *************************************** HAS LOGIN *********************** --//
+router.get("/api/has_login", async (req, res) => {
+  const sessionId = req.session.session_id;
+
+  try {
+    if (!sessionId) {
+      return res.status(401).json({ isLoggedin: false });
+    }
+
+    const user = await db.users.findOne({ session_id: sessionId });
+
+    if (user) {
+      return res.status(200).json({ isLoggedin: true, user });
+    } else {
+      return res.status(401).json({ isLoggedin: false });
+    }
+  } catch (error) {
+    console.error("Error checking login status: ", error);
+    return res.status(500).json({ error: "Internal server error!" });
+  }
+});
+
+//-- *************************************** HAS LOGIN *********************** --//
+router.post("/api/forgot_password", async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    const user = await db.users.findOne({ email: email });
+
+    if (!user) {
+      return res.status(400).json({ error: "Email not found!" });
+    }
+    const { username } = user;
+    const resetToken = generateUniqueIdentifier();
+    const resetTimestamp = Date.now();
+    
+    await db.users.updateOne({ email: email }, { $set: { reset_token: resetToken, reset_timestamp: resetTimestamp } });
+
+    const resetLink = `${process.env.BASE_URL}/reset_password?token=${resetToken}`;
+    const resetEmail = process.env.RESET_EMAIL;
+
+    resend.emails.send({
+      from: resetEmail,
+      to: email,
+      subject: "Reset Password",
+      html: resetPasswordEmailTemplate(username, resetLink),
+    });
+    return res.status(200).json({ message: "Password reset email sent successfully!" });
+  } catch (error) {
+    console.error("Error sending password reset email: ", error);
+    return res.status(500).json({ error: "Internal server error!" });
+  }
+});
+
+//-- *************************************** RESET PASSWORD *********************** --//
+router.post("/api/reset_password", async (req, res) => {
+  const { password, token } = req.body;
+
+  // Password validation
+  if (!validatePassword(password)) {
+    return res.status(400).json({
+      error: `Password must be 8-13 characters and contain at least 
+        one uppercase letter, one number, and one special character!`,
+    });
+  }
+  try {
+    const user = await db.users.findOne({ reset_token: token });
+    if (!user) {
+      return res.status(400).json({ error: "Invalid or expired token!" });
+    }
+
+    // valid token until timestamp is over
+    const resetTimestamp = user.reset_timestamp || 0;
+    const expirationTimestamp = Date.now() + 10 * 60 * 1000;
+
+    //token expire after 10 minutes
+    if (resetTimestamp > expirationTimestamp) {
+      return res.status(400).json({ error: "Password reset link has expired!" });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    await db.users.updateOne(
+      { reset_token: token },
+      { $set: { password: hashedPassword, reset_token: null, reset_timestamp: null } }
+    );
+
+    return res.status(200).json({ message: "Password reset successful!" });
+  } catch (eror) {
+    console.error("Error resetting password: ", eror);
     return res.status(500).json({ error: "Internal server error!" });
   }
 });
