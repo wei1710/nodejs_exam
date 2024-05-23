@@ -12,7 +12,7 @@
     const username = formData.get("username");
     const password = formData.get("password");
     try {
-      const response = await fetch(BASE_URL + "/api/login", {
+      const response = await fetch("/api/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -26,7 +26,6 @@
           isAuthenticated.set(true);
           user.set(true);
           toast.success("Thank you for logging in!");
-          navigate("/dashboard");
         } else {
           toast.error(data.error || "Failed to login. Please try again!");
         }
