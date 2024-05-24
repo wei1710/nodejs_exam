@@ -28,6 +28,12 @@ app.use("/api/login", loginRateLimiter);
 import authsRouter from "./routers/authsRouter.js";
 app.use(authsRouter);
 
+import usersRouter from "./routers/usersRouter.js";
+app.use(usersRouter);
+
+import moviesRouter from "./routers/moviesRouter.js";
+app.use(moviesRouter);
+
 app.get("*", (req, res) => {
   res.sendFile(path.resolve("../client/dist/index.html"));
 });
