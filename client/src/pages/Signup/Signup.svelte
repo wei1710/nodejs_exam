@@ -32,46 +32,46 @@
       console.error("Error signing up: ", error);
       toast.error("Failed to signup. Please try again!");
     }
+  }
 
-    function handleSignupError(responseData) {
-      if (responseData.errors) {
-        responseData.errors.forEach((error) => {
-          const errorMessage = getErrorMessage(error.type);
-          toast.error(errorMessage);
-        });
-      } else {
-        toast.error(
-          responseData.error || "Failed to signup. Please try again!"
+  function handleSignupError(responseData) {
+    if (responseData.errors) {
+      responseData.errors.forEach((error) => {
+        const errorMessage = getErrorMessage(error.type);
+        toast.error(errorMessage);
+      });
+    } else {
+      toast.error(
+        responseData.error || "Failed to signup. Please try again!"
+      );
+    }
+  }
+
+  function getErrorMessage(errorType) {
+    switch (errorType) {
+      case "username_length":
+        return (
+          "Username must be between 5 - 13 characters" +
+          " and can only contain letters, numbers, underscores, or hyphens!"
         );
-      }
+      case "password_strength":
+        return (
+          "Password must be 8-13 characters" +
+          " and contain at least one uppercase letter, one number, and one special character!"
+        );
+      case "invalid_email":
+        return "Invalid email address!";
+      case "username_exists":
+        return "Username already exists!";
+      case "email_exists":
+        return "Email address is already in use!";
+      default:
+        return "Failed to signup. Please try again!";
     }
+  }
 
-    function getErrorMessage(errorType) {
-      switch (errorType) {
-        case "username_length":
-          return (
-            "Username must be between 5 - 13 characters" +
-            " and can only contain letters, numbers, underscores, or hyphens!"
-          );
-        case "password_strength":
-          return (
-            "Password must be 8-13 characters" +
-            " and contain at least one uppercase letter, one number, and one special character!"
-          );
-        case "invalid_email":
-          return "Invalid email address!";
-        case "username_exists":
-          return "Username already exists!";
-        case "email_exists":
-          return "Email address is already in use!";
-        default:
-          return "Failed to signup. Please try again!";
-      }
-    }
-
-    function goToLogin() {
-      navigate("/login");
-    }
+  function goToLogin() {
+    navigate("/login");
   }
 </script>
 
@@ -96,28 +96,22 @@
       <div class="row button">
         <input type="submit" value="Signup" />
       </div>
+      <div class="login-link">
+        Already an user <button on:click={goToLogin}>Login now</button>
+      </div>
     </form>
   </div>
 </div>
 
 <style>
-  * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
-}
-
-/*-- ******** Auth Form ********* -*/
-
-.container {
+  .container {
   max-width: 440px;
   padding: 0 20px;
   margin: 170px auto;
 }
 
 .auth-wrapper {
-  width: 100%;
+  width: 110%;
   background-color: rgba(19, 116, 195, 0.188);
   border-radius: 5px;
 }
@@ -170,6 +164,12 @@ form .row input:focus {
 
 form .button input:hover {
   background: #12876f;
+}
+
+.auth-wrapper form .login-link {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 17px;
 }
 
 .auth-wrapper form {

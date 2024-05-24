@@ -128,7 +128,7 @@ checkLoginStatus();
 }
 
 .auth-wrapper {
-  width: 100%;
+  width: 110%;
   background-color: rgba(19, 116, 195, 0.188);
   border-radius: 5px;
 }
