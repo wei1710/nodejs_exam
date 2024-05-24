@@ -25,13 +25,4 @@ function getMovie(imdbId) {
   });
 }
 
-/* getMovie("tt15239678")
-  .then(result => {
-    console.log(result);
-  })
-  .catch(error => {
-    console.error("Failed to fetch movie:", error);
-  });
-*/
-
 export { getMovie };

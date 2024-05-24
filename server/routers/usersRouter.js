@@ -37,7 +37,7 @@ router.delete("/api/users/:email", async (req, res) => {
     return res.status(400).json({ error: "Email doesn't exist" });
   }
   try {
-    const deleteUser = await db.users.deleteOne({ email });
+    const deleteUser = await db.users.deleteOne({ email: email });
     if (deleteUser.deletedCount === 0) {
       return re.status(404).json({ error: "User not found" });
     }
