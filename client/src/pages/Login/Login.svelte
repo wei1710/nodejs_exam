@@ -4,7 +4,7 @@
   import { navigate } from "svelte-navigator";
   import { user, isAuthenticated } from "../../stores/store.js";
   import { toast, Toaster } from "svelte-french-toast";
-  
+
   async function login(event) {
     event.preventDefault();
 
@@ -47,7 +47,9 @@
         toast.error("Please verify your email!");
         break;
       case 429:
-        toast.error("Too many login attempts! Please try again after 10 minutes!");
+        toast.error(
+          "Too many login attempts! Please try again after 10 minutes!"
+        );
         break;
       default:
         toast.error("Failed to login. Please try again!");
@@ -65,26 +67,26 @@
 
   // check if already login
   async function checkLoginStatus() {
-  try {
-    const response = await fetch("/api/has_login");
-    if (response.ok) {
-      const data = await response.json();
-      isAuthenticated.set(data.isLoggedIn);
-      if (data.isLoggedIn) {
-        user.set(true);
-        navigate("/dashboard");
+    try {
+      const response = await fetch("/api/has_login");
+      if (response.ok) {
+        const data = await response.json();
+        isAuthenticated.set(data.isLoggedIn);
+        if (data.isLoggedIn) {
+          user.set(true);
+          navigate("/dashboard");
+        }
+      } else {
+        isAuthenticated.set(false);
+        user.set(false);
       }
-    } else {
-      isAuthenticated.set(false);
-      user.set(false);
+    } catch (error) {
+      console.error("Error checking login status: ", error);
+      toast.error("Failed to check login status. Please try again later.");
     }
-  } catch (error) {
-    console.error("Error checking login status: ", error);
-    toast.error("Failed to check login status. Please try again later.");
   }
-}
 
-checkLoginStatus();
+  checkLoginStatus();
 </script>
 
 <div class="container">
