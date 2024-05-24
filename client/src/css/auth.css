@@ -21,10 +21,10 @@
 
 .auth-wrapper .title {
   line-height: 90px;
-  background: #16a085;
+  background: #333;
   text-align: center;
   border-radius: 5px 5px 0 0;
-  color: #fff;
+  color: #d9e800;
   font-size: 30px;
   font-weight: 600;
 }
