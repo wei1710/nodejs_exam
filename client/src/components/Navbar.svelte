@@ -56,50 +56,5 @@
 </Router>
 
 <style>
-  header {
-    background-color: #333;
-    color: white;
-    padding: 1rem;
-    width: 100%;
-  }
-  nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 1rem;
-    width: 100%;
-  }
-  nav img {
-    padding-right: 2rem;
-  }
 
-  #left-side-nav,
-  #right-side-nav {
-    display: flex;
-    align-items: center;
-  }
-
-  #left-side-nav {
-    gap: 1rem;
-  }
-
-  #right-side-nav {
-    gap: 1rem;
-  }
-
-  .navbar-logo {
-  }
-
-  nav a {
-    text-decoration: none;
-    color: white;
-    font-size: 1.2em;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
-  }
-
-  nav a:hover {
-    background-color: #555;
-  }
 </style>
