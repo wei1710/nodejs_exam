@@ -47,9 +47,7 @@
         toast.error("Please verify your email!");
         break;
       case 429:
-        toast.error(
-          "Too many login attempts! Please try again after 10 minutes!"
-        );
+        toast.error("Too many login attempts! Please try again after 10 minutes!");
         break;
       default:
         toast.error("Failed to login. Please try again!");
@@ -89,6 +87,19 @@
   checkLoginStatus();
 </script>
 
+<div class="login-container">
+  <div class="login-header">Login</div>
+  <input type="text" name="username" placeholder="Username" required class="login-input" />
+  <input type="password" name="password" placeholder="Password" required class="login-input" />
+  <button class="login-button">Login</button>
+  <div class="signup-link">
+    <button on:click={goToSignup}>Not a user yet? Signup now</button>
+  </div>
+  <div class="reset-link">
+    <button on:click={goToForgotPassword}>Forgot password?</button>
+  </div>
+</div>
+
 <style>
   .login-container {
     background-color: #031926;
@@ -100,7 +111,7 @@
   }
 
   .login-header {
-    color: #D9E800;
+    color: #bdfffd;
     text-align: center;
     margin-bottom: 20px;
     font-size: 24px;
@@ -113,44 +124,34 @@
     border: 1px solid #333;
     border-radius: 5px;
     background-color: #242424;
-    color: #D9E800;
+    color: #bdfffd;
   }
 
   .login-button {
     width: 100%;
     padding: 10px;
-    background-color: #BDFFFD;
+    background-color: #333;
     border: none;
     border-radius: 5px;
-    color: #031926;
+    color: #bdfffd;
     font-size: 16px;
     cursor: pointer;
   }
 
   .login-button:hover {
-    background-color: #D9E800;
+    background-color: #bdfffd;
+    color: #242424;
   }
 
   .signup-link,
   .reset-link {
-    color: #BDFFFD;
+    color: #bdfffd;
     display: block;
     text-align: center;
     margin-top: 10px;
   }
-
-  .signup-link:hover,
-  .reset-link:hover {
-    color: #A5E7E5;
+  .signup-link:hover button,
+  .reset-link:hover button {
+    color: #bdfffd;
   }
 </style>
-
-<div class="login-container">
-  <div class="login-header">Login</div>
-  <input type="text" name="username" placeholder="Username" required class="login-input" />
-  <input type="password" name="password" placeholder="Password" required class="login-input" />
-  <button class="login-button">Login</button>
-  <button class="signup-link" 
-  <a href="#" class="signup-link">Not a user yet? Signup now</a>
-  <a href="#" class="reset-link">Forgot Password? Reset now</a>
-</div>
