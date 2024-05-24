@@ -2,6 +2,7 @@
   import { onMount } from "svelte";
   import { BASE_URL } from "../../stores/store";
   import { fetchGet } from "../../util/api";
+  import Navbar from "../../components/Navbar.svelte";
 
   let users = [];
 
@@ -17,6 +18,7 @@
   onMount(fetchUsers);
 </script>
 
+<Navbar />
 <table>
   <thead>
     <tr>

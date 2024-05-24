@@ -7,6 +7,7 @@
 
   async function login(event) {
     event.preventDefault();
+    checkLoginStatus();
 
     const formData = new FormData(event.target);
     const username = formData.get("username");
@@ -26,6 +27,7 @@
           isAuthenticated.set(true);
           user.set(true);
           toast.success("Thank you for logging in!");
+          navigate("/user");
         } else {
           toast.error(data.error || "Failed to login. Please try again!");
         }
@@ -84,22 +86,23 @@
     }
   }
 
-  checkLoginStatus();
+
 </script>
 
 <div class="login-container">
   <div class="login-header">Login</div>
+  <form on:submit={login}>
   <input type="text" name="username" placeholder="Username" required class="login-input" />
   <input type="password" name="password" placeholder="Password" required class="login-input" />
-  <button class="login-button">Login</button>
+  <input type="submit" class="login-button" value="Login" />
   <div class="signup-link">
     <button on:click={goToSignup}>Not a user yet? Signup now</button>
   </div>
   <div class="reset-link">
     <button on:click={goToForgotPassword}>Forgot password?</button>
   </div>
+</form>
 </div>
-
 <style>
   .login-container {
     background-color: #031926;

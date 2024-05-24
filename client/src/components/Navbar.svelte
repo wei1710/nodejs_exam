@@ -7,9 +7,37 @@
   import User from "../pages/User/User.svelte";
   import PrivateRoute from "../util/PrivateRoute.svelte";
   import { user, isAuthenticated, BASE_URL } from "../stores/store.js";
-  function logout() {
-    console.log("logout");
+  
+  async function logOut() {
+    try {
+      const response = await fetch(BASE_URL +"/api/logout", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.ok) {
+        toast.success("Sign out successful!");
+        sessionStorage.removeItem("isAuthenticated");
+        sessionStorage.removeItem("user");
+        user.set(null);
+        isAuthenticated.set(false);
+        console.log("Sign out successful");
+        setTimeout(() => {
+        navigate("/");
+      }, 1000)
+        // navigate("/");
+      } else {
+        toast.error("Failed to sign out!");
+        console.error("Sign out failed: ", response.statusText);
+      }
+    } catch (error) {
+      toast.error("Error: cannot sign out!");
+      console.error("Error signing out: ", error);
+    }
   }
+
 </script>
 
 <Toaster />
@@ -29,9 +57,10 @@
           <Link to="/signup">Signup</Link>
         {/if}
 
-        {#if $user !== null}
+        {#if $user}
           <Link to="/user">User</Link>
-          <a href="/" on:click|preventDefault={logout}>Logout</a>
+          <button on:click={logOut} >Logout</button>
+          <!-- <a on:click|preventDefault={logOut}>Logout</a> -->
         {/if}
       </div>
     </nav>
