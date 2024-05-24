@@ -89,68 +89,32 @@
   checkLoginStatus();
 </script>
 
-<style>
-  .login-container {
-    background-color: #031926;
-    max-width: 440px;
-    padding: 20px;
-    margin: 170px auto;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  }
-
-  .login-header {
-    color: #D9E800;
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 24px;
-  }
-
-  .login-input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #333;
-    border-radius: 5px;
-    background-color: #242424;
-    color: #D9E800;
-  }
-
-  .login-button {
-    width: 100%;
-    padding: 10px;
-    background-color: #BDFFFD;
-    border: none;
-    border-radius: 5px;
-    color: #031926;
-    font-size: 16px;
-    cursor: pointer;
-  }
-
-  .login-button:hover {
-    background-color: #D9E800;
-  }
-
-  .signup-link,
-  .reset-link {
-    color: #BDFFFD;
-    display: block;
-    text-align: center;
-    margin-top: 10px;
-  }
-
-  .signup-link:hover,
-  .reset-link:hover {
-    color: #A5E7E5;
-  }
-</style>
-
-<div class="login-container">
-  <div class="login-header">Login</div>
-  <input type="text" name="username" placeholder="Username" required class="login-input" />
-  <input type="password" name="password" placeholder="Password" required class="login-input" />
-  <button class="login-button">Login</button>
-  <button class="signup-link" 
-  <a href="#" class="signup-link">Not a user yet? Signup now</a>
-  <a href="#" class="reset-link">Forgot Password? Reset now</a>
+<div class="container">
+  <div class="auth-wrapper">
+    <div class="title"><span>Login</span></div>
+    <form on:submit={login}>
+      <div class="row">
+        <input type="text" name="username" placeholder="Username" required />
+      </div>
+      <div class="row">
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          required
+        />
+      </div>
+      <div class="row button">
+        <input type="submit" value="Login" />
+      </div>
+      <div class="signup-link">
+        Not an user yet? <button on:click={goToSignup}>Signup now</button>
+      </div>
+      <div class="forgot-password-link">
+        Forgot Password <button on:click={goToForgotPassword}>Reset now</button>
+      </div>
+    </form>
+  </div>
 </div>
+
+<Toaster />
