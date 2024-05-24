@@ -22,6 +22,7 @@
   },
   "contributors": [],
   "scripts": {
+    "database-create": "node ./database/setup.js",
     "dev": "",
     "test": "",
     "lint": "eslint .",
