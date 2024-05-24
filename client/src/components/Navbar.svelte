@@ -7,8 +7,6 @@
   import User from "../pages/User/User.svelte";
   import PrivateRoute from "../util/PrivateRoute.svelte";
   import { user, isAuthenticated, BASE_URL } from "../stores/store.js";
-  
-  
 </script>
 
 <Toaster />
