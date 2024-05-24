@@ -15,10 +15,10 @@ router.get("/api/users", async (req, res) => {
 });
 
 //-- *********************************** FIND USER BY EMAIL *********************** --//
-router.get("/api/users/search", async (req, res) => {
-  const { email } = req.query;
+router.get("/api/users/:email", async (req, res) => {
+  const { email } = req.params;
   if (!email) {
-    return res.status(400).json({ error: "Email query parameter is required" });
+    return res.status(400).json({ error: "Email doesn't exist" });
   }
   try {
     const users = await db.users.find().toArray();
@@ -31,10 +31,10 @@ router.get("/api/users/search", async (req, res) => {
 });
 
 //-- *********************************** DELETE USER *********************** --//
-router.delete("/api/users", async (req, res) => {
-  const { email } = req.query;
+router.delete("/api/users/:email", async (req, res) => {
+  const { email } = req.params;
   if (!email) {
-    return res.status(400).json({ error: "Email query parameter is required" });
+    return res.status(400).json({ error: "Email doesn't exist" });
   }
   try {
     const deleteUser = await db.users.deleteOne({ email });
