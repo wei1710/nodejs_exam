@@ -74,7 +74,7 @@
         isAuthenticated.set(data.isLoggedIn);
         if (data.isLoggedIn) {
           user.set(true);
-          navigate("/dashboard");
+          navigate("/user");
         }
       } else {
         isAuthenticated.set(false);
