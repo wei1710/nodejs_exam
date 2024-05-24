@@ -14,7 +14,7 @@
 }
 
 .auth-wrapper {
-  width: 100%;
+  width: 110%;
   background-color: rgba(19, 116, 195, 0.188);
   border-radius: 5px;
 }
@@ -41,7 +41,7 @@
 
 .auth-wrapper form .row input {
   height: 100%;
-  width: 85%;
+  width: 95%;
   outline: none;
   padding-left: 20px;
   border-radius: 5px;

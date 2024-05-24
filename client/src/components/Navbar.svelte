@@ -12,9 +12,11 @@
 <Toaster />
 <Router>
   <header>
-    <h1>Mandatory II</h1>
+    <h1>Movie Portal</h1>
 
-    <nav></nav>
+    <nav>
+      
+    </nav>
   </header>
   <main>
     <Route path="/">
