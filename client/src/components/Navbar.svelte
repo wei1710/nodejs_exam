@@ -7,6 +7,7 @@
   import ResetPassword from "../pages/ResetPassword/ResetPassword.svelte";
   import Signup from "../pages/Signup/Signup.svelte";
   import User from "../pages/User/User.svelte";
+  import Movies from "../pages/Movies/Movies.svelte";
   import PrivateRoute from "../util/PrivateRoute.svelte";
   import { user, isAuthenticated, BASE_URL } from "../stores/store.js";
   
@@ -91,6 +92,14 @@
 
     <!-- <PrivateRoute path="/users" let:location>
       <User />
+    </PrivateRoute> -->
+
+    <Route path="/movies">
+      <Movies />
+    </Route>
+
+    <!-- <PrivateRoute path="/movies" let:location>
+      <Movies />
     </PrivateRoute> -->
   </main>
 </Router>
