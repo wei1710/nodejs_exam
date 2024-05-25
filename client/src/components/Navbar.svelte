@@ -85,9 +85,13 @@
       <Signup />
     </Route>
 
-    <PrivateRoute path="/user" let:location>
+    <Route path="/users">
       <User />
-    </PrivateRoute>
+    </Route>
+
+    <!-- <PrivateRoute path="/users" let:location>
+      <User />
+    </PrivateRoute> -->
   </main>
 </Router>
 

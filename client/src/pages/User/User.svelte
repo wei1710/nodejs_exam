@@ -7,11 +7,17 @@
   let users = [];
 
   const fetchUsers = async () => {
-    const response = await fetchGet(`${BASE_URL}/api/users`);
-    if (response.ok) {
-      users = await response.json();
-    } else {
-      console.error("Failed fetching users!");
+    try {
+      const response = await fetch("/api/users");
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      users = data;
+    } catch (error) {
+      console.error("Error during fetch:", error);
     }
   };
 
@@ -38,6 +44,7 @@
 
 <style>
   table {
+    margin-top: 5%;
     width: 100%;
     border-collapse: collapse;
   }
@@ -48,6 +55,6 @@
   }
 
   th {
-    background-color: #f4f4f4;
+    background-color: #333;
   }
 </style>
