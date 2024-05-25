@@ -3,6 +3,8 @@
   import { toast, Toaster } from "svelte-french-toast";
   import Home from "../pages/Home/Home.svelte";
   import Login from "../pages/Login/Login.svelte";
+  import ForgotPassword from "../pages/ForgotPassword/ForgotPassword.svelte";
+  import ResetPassword from "../pages/ResetPassword/ResetPassword.svelte";
   import Signup from "../pages/Signup/Signup.svelte";
   import User from "../pages/User/User.svelte";
   import PrivateRoute from "../util/PrivateRoute.svelte";
@@ -15,19 +17,17 @@
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include"
       });
 
       if (response.ok) {
-        toast.success("Sign out successful!");
         sessionStorage.removeItem("isAuthenticated");
         sessionStorage.removeItem("user");
         user.set(null);
         isAuthenticated.set(false);
-        console.log("Sign out successful");
-        setTimeout(() => {
+        toast.success("Sign out successful!");
         navigate("/");
-      }, 1000)
-        // navigate("/");
+        console.log("Sign out successful");
       } else {
         toast.error("Failed to sign out!");
         console.error("Sign out failed: ", response.statusText);
@@ -60,7 +60,6 @@
         {#if $user}
           <Link to="/user">User</Link>
           <button on:click={logOut} >Logout</button>
-          <!-- <a on:click|preventDefault={logOut}>Logout</a> -->
         {/if}
       </div>
     </nav>
@@ -74,11 +73,19 @@
       <Login />
     </Route>
 
+    <Route path="/forgot_password">
+      <ForgotPassword />
+    </Route>
+
+    <Route path="/reset_password">
+      <ResetPassword />
+    </Route>
+
     <Route path="/signup">
       <Signup />
     </Route>
 
-    <PrivateRoute path="/user" let:location>
+    <PrivateRoute path="/user">
       <User />
     </PrivateRoute>
   </main>

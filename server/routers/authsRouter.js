@@ -199,7 +199,7 @@ router.get("/api/has_login", async (req, res) => {
   }
 });
 
-//-- *************************************** HAS LOGIN *********************** --//
+//-- *************************************** FORGOT PASSWORD *********************** --//
 router.post("/api/forgot_password", async (req, res) => {
   const { email } = req.body;
 

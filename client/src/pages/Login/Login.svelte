@@ -4,6 +4,7 @@
   import { navigate } from "svelte-navigator";
   import { user, isAuthenticated } from "../../stores/store.js";
   import { toast, Toaster } from "svelte-french-toast";
+  import { onMount } from "svelte";
 
   async function login(event) {
     event.preventDefault();
@@ -19,13 +20,17 @@
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ username, password }),
+        credentials: "include"
       });
 
       if (response.ok) {
         const data = await response.json();
+        console.log("Login response data:", data);
         if (data.message === "Login successful!") {
           isAuthenticated.set(true);
           user.set(true);
+          localStorage.setItem("isAuthenticated", "true");
+          localStorage.setItem("user", JSON.stringify(data.user));
           toast.success("Thank you for logging in!");
           navigate("/user");
         } else {
@@ -36,11 +41,13 @@
         handleLoginError(responseData, response.status);
       }
     } catch (error) {
+      console.error("Error during login:", error);
       toast.error("Failed to login. Please try again!");
     }
   }
 
   function handleLoginError(responseData, status) {
+    console.log("Login error response data:", responseData);
     switch (status) {
       case 401:
         toast.error(responseData.error || "Invalid username or password!");
@@ -68,25 +75,30 @@
   // check if already login
   async function checkLoginStatus() {
     try {
-      const response = await fetch("/api/has_login");
+      const response = await fetch("/api/has_login", {
+        credentials: "include"
+      });
       if (response.ok) {
         const data = await response.json();
-        isAuthenticated.set(data.isLoggedIn);
+        console.log("Check login status response data:", data);
+        isAuthenticated.set(true);
         if (data.isLoggedIn) {
           user.set(true);
+          localStorage.setItem("isAuthenticated", "true");
+          localStorage.setItem("user", JSON.stringify(data.user));
           navigate("/user");
         }
       } else {
         isAuthenticated.set(false);
-        user.set(false);
+        user.set(null);
+        localStorage.removeItem("isAuthenticated");
+        localStorage.removeItem("user");
       }
     } catch (error) {
       console.error("Error checking login status: ", error);
       toast.error("Failed to check login status. Please try again later.");
     }
   }
-
-
 </script>
 
 <div class="login-container">
