@@ -71,6 +71,7 @@
   }
 </script>
 
+<!-- *********************************** SIGNUP FORM *********************** -->
 <div class="signup-container">
   <div class="signup-header">Signup
     <form on:submit={signup}>

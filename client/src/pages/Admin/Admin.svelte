@@ -11,6 +11,7 @@
   let newYear = writable("");
   let newGenre = writable("");
 
+  //-- *********************************** GET MOVIES *********************** --//
   const fetchMovies = async () => {
     try {
       const response = await fetch("/api/movies");
@@ -26,6 +27,7 @@
     }
   };
 
+  //-- *********************************** ADD NEW MOVIE *********************** --//
   const addMovie = async () => {
     const imdbId = $newMovieId;
     try {
@@ -48,6 +50,7 @@
     }
   };
 
+  //-- *********************************** UPDATE MOVIES *********************** --//
   const updateMovie = async () => {
     try {
       const title = $editingMovie.Title;
@@ -74,6 +77,7 @@
     }
   };
 
+  //-- *********************************** EDIT MOVIES *********************** --//
   const editMovie = (movie) => {
     editingMovie.set(movie);
     newTitle.set(movie.Title);
@@ -81,6 +85,7 @@
     newGenre.set(movie.Genre);
   };
 
+  //-- *********************************** CANCEL EDIT MOVIES *********************** --//
   const cancelEdit = () => {
     editingMovie.set(null);
     newTitle.set("");
@@ -88,6 +93,7 @@
     newGenre.set("");
   };
 
+  //-- *********************************** DELETE MOVIES *********************** --//
   const deleteMovie = async (title) => {
     try {
       const response = await fetch(`/api/movies/${encodeURIComponent(title)}`, {
@@ -109,7 +115,7 @@
 
 <Navbar />
 
-<!-- search bar -->
+<!-- *********************************** SEARCH BAR *********************** -->
 <div>
   <input
     id="search-bar"
@@ -119,7 +125,7 @@
   />
 </div>
 
-<!-- add movies -->
+<!-- *********************************** ADD MOVIE *********************** -->
 <div>
   <input
     id="add-movie-input"
@@ -130,7 +136,9 @@
   <button id="add-movie-button" on:click={addMovie}>Add Movie</button>
 </div>
 
+<!-- *********************************** ALL MOVIES *********************** -->
 <div class="movies-list">
+  <!-- *********************************** FILTER MOVIE ON SEARCH *********************** -->
   {#each movies.filter( (movie) => movie.Title.toLowerCase().includes($searchQuery.toLowerCase()) ) as movie}
     <div class="movie-card">
       <div class="movie-title">
@@ -146,7 +154,7 @@
         <p class="rate"><strong>Rating:</strong> {movie.imdbRating}</p>
       </div>
 
-      <!-- edit movie -->
+      <!-- *********************************** EDIT MOVIE FORM *********************** -->
       {#if $editingMovie && $editingMovie.Title === movie.Title}
         <div class="edit-form">
           <input type="text" bind:value={$newTitle} placeholder="Title" />
@@ -159,7 +167,9 @@
         </div>
       {:else}
         <div class="actions">
+          <!-- *********************************** EDIT MOVIE BUTTON *********************** -->
           <button class="edit-button" on:click={() => editMovie(movie)}>Edit</button>
+          <!-- *********************************** DELETE MOVIE BUTTON *********************** -->
           <button class="delete-button" on:click={() => deleteMovie(movie.Title)}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -179,6 +189,7 @@
 </div>
 
 <style>
+  /*-- *********************************** SEARCH BAR, ADD MOVIE INPUT + BUTTON *********************** --*/
   #search-bar,
   #add-movie-input,
   #add-movie-button {
@@ -217,6 +228,7 @@
     color: #242424;
   }
 
+  /*-- *********************************** MOVIE *********************** --*/
   .movies-list {
     margin-top: -11.5%;
     display: flex;
@@ -307,6 +319,7 @@
     background-color: darkred;
   }
 
+  /*-- *********************************** EDIT FORM *********************** --*/
   .edit-form {
     display: flex;
     flex-direction: column;

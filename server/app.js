@@ -25,6 +25,7 @@ import { sessionMiddleware, ipRateLimiter, loginRateLimiter } from "./util/secur
 app.use(sessionMiddleware, ipRateLimiter);
 app.use("/api/login", loginRateLimiter);
 
+//-- --*********************************** ROUTERS *********************** --//
 import authsRouter from "./routers/authsRouter.js";
 app.use(authsRouter);
 

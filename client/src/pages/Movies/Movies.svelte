@@ -6,6 +6,7 @@
   let movies = [];
   let searchQuery = writable(""); // bind search input
 
+  //-- *********************************** GET ALL MOVIES *********************** --//
   const fetchMovies = async () => {
     try {
       const response = await fetch("/api/movies");
@@ -25,10 +26,15 @@
 </script>
 
 <Navbar />
+
+<!-- *********************************** SEARCH BAR *********************** --> 
 <div>
   <input id="search-bar" type="text" placeholder="Search movies by title" bind:value={$searchQuery} />
 </div>
+
+<!-- *********************************** ALL MOVIES *********************** --> 
 <div class="movies-list">
+  <!-- *********************************** FILTER MOVIE ON SEARCH *********************** -->
   {#each movies.filter((movie) => movie.Title.toLowerCase().includes($searchQuery.toLowerCase())) as movie}
     <div class="movie-card">
       <div class="movie-title">
@@ -48,6 +54,7 @@
 </div>
 
 <style>
+  /* --*********************************** SEARCH BAR *********************** --*/
   #search-bar {
     margin-top: 5%;
     width: 20%;
@@ -60,6 +67,7 @@
     padding: 10px;
   }
 
+  /*-- *********************************** MOVIE *********************** --*/
   .movies-list {
     margin-top: -3%;
     display: flex;
@@ -69,7 +77,7 @@
   }
 
   .movie-card {
-    background-color: #333;
+    background-color: #242424;
     border: 2px solid #CCC651;
     border-radius: 10px;
     padding: 20px;

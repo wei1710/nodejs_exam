@@ -46,6 +46,7 @@
   }
 </script>
 
+<!-- *********************************** FORGOT PASSWORD FORM *********************** -->
 <div class="forgot-password-container">
   <div class="forgot-password-header">Forgot Password</div>
     <form on:submit={forgotPassword}>

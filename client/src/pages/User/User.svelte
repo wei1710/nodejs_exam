@@ -11,6 +11,7 @@
   let newEmail = writable("");
   let newUsername = writable("");
 
+  //-- *********************************** GET USERS *********************** --//
   const fetchUsers = async () => {
     try {
       const response = await fetch("/api/users");
@@ -26,6 +27,7 @@
     }
   };
 
+  //-- *********************************** UPDATE USERS *********************** --//
   const updateUser = async () => {
     try {
       const email = $editingUser.email;
@@ -51,18 +53,21 @@
     }
   };
 
+  //-- *********************************** EDIT USER *********************** --//
   const editUser = (user) => {
     editingUser.set(user);
     newEmail.set(user.email);
     newUsername.set(user.username);
   };
 
+  //-- *********************************** CANCEL EDIT USER *********************** --//
   const cancelEdit = () => {
     editingUser.set(null);
     newEmail.set("");
     newUsername.set("");
   };
 
+  //-- *********************************** DELETE USER *********************** --//
   const deleteUser = async (email) => {
     try {
       const response = await fetch(`/api/users/${email}`, {
@@ -73,8 +78,7 @@
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
-      // update users array
-      users = users.filter((user) => user.email !== email);
+      fetchUsers(); // Refresh user list
     } catch (error) {
       console.error("Error deleting user:", error);
     }
@@ -85,7 +89,7 @@
 
 <Navbar />
 
-<!-- search bar -->
+<!-- *********************************** SEARCH BAR *********************** -->
 <div>
   <input
     id="search-bar"
@@ -104,14 +108,16 @@
     </tr>
   </thead>
   <tbody>
-    {#each users.filter((user) => user.email
-        .toLowerCase()
-        .includes($searchQuery.toLowerCase())) as user}
+    <!-- *********************************** ALL USERS *********************** -->
+    <!-- *********************************** FILTER USER ON SEARCH *********************** -->
+    {#each users.filter((user) => user.email.toLowerCase().includes($searchQuery.toLowerCase())) as user}
       <tr>
         <td>{user.username}</td>
         <td>{user.email}</td>
         <td>{user.is_admin ? "Admin" : "User"}</td>
         <td>
+
+          <!-- *********************************** EDIT USER FORM *********************** -->
           {#if $editingUser && $editingUser.email === user.email}
             <div class="edit-form">
               <input type="text" bind:value={$newUsername} placeholder="Username"/>
@@ -122,7 +128,9 @@
               </div>
             </div>
           {:else if !user.is_admin}
+            <!-- *********************************** EDIT USER BUTTON *********************** -->
             <button class="edit-button" on:click={() => editUser(user)}>Edit</button>
+            <!-- *********************************** DELETE USER BUTTON *********************** -->
             <button class="delete-button" on:click={() => deleteUser(user.email)}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -143,6 +151,7 @@
 </table>
 
 <style>
+  /* --*********************************** SEARCH BAR *********************** -- */
   #search-bar {
     margin-top: 5%;
     width: 20%;
@@ -155,6 +164,7 @@
     padding: 10px;
   }
 
+  /* --*********************************** TABLE *********************** -- */
   table {
     margin-top: 3%;
     width: 97%;
@@ -224,6 +234,7 @@
     background-color: darkred;
   }
 
+  /*-- *********************************** EDIT FORM *********************** --*/
   .edit-form {
     display: flex;
     flex-direction: column;

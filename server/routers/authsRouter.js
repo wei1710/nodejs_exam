@@ -19,7 +19,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 router.post("/api/signup", async (req, res) => {
   const { username, password, email } = req.body;
 
-  // Username requirements
+  //-- *************************************** USERNAME REQUIREMENTS *********************** --//
   if (!validateUsername(username)) {
     return res.status(400).json({
       error:
@@ -28,7 +28,7 @@ router.post("/api/signup", async (req, res) => {
     });
   }
 
-  // Password validation
+  //-- *************************************** PASSWORD VALIDATION *********************** --//
   if (!validatePassword(password)) {
     return res.status(400).json({
       error:
@@ -37,7 +37,7 @@ router.post("/api/signup", async (req, res) => {
     });
   }
 
-  // Email validation
+  //-- *************************************** EMAIL VALIDATION *********************** --//
   if (!validateEmail(email)) {
     return res.status(400).json({ error: "Invalid email address!" });
   }
@@ -53,16 +53,17 @@ router.post("/api/signup", async (req, res) => {
         return res.status(400).json({ error: "Email address is already in use!" });
       }
     }
-    // hash password
+    //-- *************************************** HASH PASSWORD *********************** --//
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Generate a verification token
+    //-- *************************************** GENERATE VERIFICATION TOKEN *********************** --//
     const verificationToken = generateUniqueIdentifier();
+    
     const verificationKey = `verify_${verificationToken}`; // unique key for verification token
 
     const expirationTimestamp = Date.now() + 10 * 60 * 1000;
 
-    // Insert user into db
+    //-- *************************************** INSERT USER INTO DB *********************** --//
     await db.users.insertOne({
       username: username,
       password: hashedPassword,
@@ -80,6 +81,7 @@ router.post("/api/signup", async (req, res) => {
 
     const verificationLink = `${process.env.BASE_URL}/api/verify?uid=${verificationToken}`;
 
+    //-- *************************************** VERIFICATION EMAIL *********************** --//
     const verificationEmail = process.env.VERIFY_EMAIL;
     resend.emails.send({
       from: verificationEmail,
@@ -135,10 +137,9 @@ router.get("/api/verify", async (req, res) => {
 
 //-- *************************************** LOGIN *********************** --//
 router.post("/api/login", async (req, res) => {
-  // console.log("Received login request:", req.body);
   const { username, password } = req.body;
 
-  // find user by username
+  //-- *************************************** FIND USER BY USERNAME *********************** --//
   const user = await db.users.findOne({ username: username });
 
   if (!user) {
@@ -146,13 +147,12 @@ router.post("/api/login", async (req, res) => {
   }
 
   try {
-    // compare password with hashed password
+    //-- ************************ COMPARE PASSWORD WITH HASHED PASSWORD *********************** --//
     const match = await bcrypt.compare(password, user.password);
 
     if (match) {
       // check if user's email is verified
       if (!user.verified) {
-        // console.log("User's email is not verified");
         return res.status(402).json({ error: "Please verify your email!" });
       }
 
@@ -161,7 +161,7 @@ router.post("/api/login", async (req, res) => {
       req.session.session_id = sessionId;
 
       try {
-        // Saving sessionId to the user in the db
+        //-- ********************* SAVE SESSIONID TO THE USER IN THE DB *********************** --//
         await db.users.updateOne({ username: username }, { $set: { session_id: sessionId } });
       } catch (error) {
         console.error("Error updating user session: ", error);
@@ -235,7 +235,7 @@ router.post("/api/forgot_password", async (req, res) => {
 router.post("/api/reset_password", async (req, res) => {
   const { password, token } = req.body;
 
-  // Password validation
+  //-- *************************************** PASSWORD VALIDATION *********************** --//
   if (!validatePassword(password)) {
     return res.status(400).json({
       error: `Password must be 8-13 characters and contain at least 
@@ -248,11 +248,11 @@ router.post("/api/reset_password", async (req, res) => {
       return res.status(400).json({ error: "Invalid or expired token!" });
     }
 
-    // valid token until timestamp is over
+    //-- ********************** VALID TOKEN UNTIL TIMESTAMP IS OVER *********************** --//
     const resetTimestamp = user.reset_timestamp || 0;
     const expirationTimestamp = Date.now() + 10 * 60 * 1000;
 
-    //token expire after 10 minutes
+    //-- ********************** TOKEN EXPIRE AFTER 10 MINUTES *********************** --//
     if (resetTimestamp > expirationTimestamp) {
       return res.status(400).json({ error: "Password reset link has expired!" });
     }
@@ -271,12 +271,11 @@ router.post("/api/reset_password", async (req, res) => {
 });
 
 //-- *************************************** LOGOUT *********************** --//
-// Update session ID to null in the db for user with matching session ID
 router.get("/api/logout", async (req, res) => {
   const sessionId = req.session.session_id;
 
   try {
-    // Update session ID to null in the db for user with matching session ID
+    //-- ******** UPDATE SESSION ID TO NULL IN DB FOR USER WITH MATCHING SESSION ID ************* --//
     await db.users.updateOne({ session_id: sessionId }, { $set: { session_id: null } });
 
     req.session.destroy((error) => {

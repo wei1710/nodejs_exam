@@ -12,6 +12,7 @@
   import PrivateRoute from "../util/PrivateRoute.svelte";
   import { user, isAuthenticated, BASE_URL } from "../stores/store.js";
   
+  //-- *********************************** LOGOUT *********************** --//
   async function logOut() {
     try {
       const response = await fetch(BASE_URL +"/api/logout", {
@@ -46,6 +47,7 @@
 <Router>
 
   <header>
+    <!-- --*********************************** TOP LEFT LOGO ***********************-- -->
     <nav>
       <div id="left-side-nav">
         <img src="/images/logo2-2-removebg.png" alt="Logo" class="navbar-logo" />
@@ -53,6 +55,7 @@
         <Link to="/">Home</Link>
       </div>
 
+      <!-- --*********************************** TOP RIGHT NAVIGATION ***********************-- -->
       <div id="right-side-nav">
         {#if $user === null}
           <Link to="/login">Login</Link>

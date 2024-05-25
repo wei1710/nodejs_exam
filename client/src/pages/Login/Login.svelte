@@ -68,7 +68,7 @@
     navigate("/forgot_password");
   }
 
-  // check if already login
+  //-- *********************************** CHECK IF ALREADY LOGIN *********************** --//
   async function checkLoginStatus() {
     try {
       const response = await fetch("/api/has_login", {
@@ -97,6 +97,7 @@
   }
 </script>
 
+<!-- *********************************** LOGIN FORM *********************** --> 
 <div class="login-container">
   <div class="login-header">Login</div>
   <form on:submit={login}>

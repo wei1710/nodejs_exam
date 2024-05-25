@@ -1,3 +1,4 @@
+//-- --*********************************** VERIFY EMAIL *********************** --//
 const verifyEmailTemplate = (username, verificationLink) => `
 <h1>Verify Email!</h1>
 <p>Hello ${username}, welcome and thank you for signing up! 
@@ -51,6 +52,7 @@ const expiredVerifyEmailTemplate = `
 </html>
 `;
 
+//-- --*********************************** VERIFIED EMAIL *********************** --//
 const emailVerifiedTemplate = `
 <html>
   <head>
@@ -96,6 +98,7 @@ const emailVerifiedTemplate = `
 </html>
 `;
 
+//-- --*********************************** RESET PASSWORD EMAIL *********************** --//
 const resetPasswordEmailTemplate = (username, resetLink) => `
 <p>Hello ${username},
 if your forgot your password you can reset it! 

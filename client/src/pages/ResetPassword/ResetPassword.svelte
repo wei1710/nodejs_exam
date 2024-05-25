@@ -55,6 +55,7 @@
   }
 </script>
 
+<!-- *********************************** RESET PASSWORD FORM *********************** -->
 <div class="reset-password-container">
   <div class="reset-password-header">Reset Password</div>
     <form on:submit={resetPassword}>
