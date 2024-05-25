@@ -7,6 +7,9 @@
 
   let users = [];
   let searchQuery = writable(""); // bind search input
+  let editingUser = writable(null); // store user being edited
+  let newEmail = writable("");
+  let newUsername = writable("");
 
   const fetchUsers = async () => {
     try {
@@ -21,6 +24,43 @@
     } catch (error) {
       console.error("Error during fetch:", error);
     }
+  };
+
+  const updateUser = async () => {
+    try {
+      const email = $editingUser.email;
+      const response = await fetch(`/api/users/${email}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          newEmail: $newEmail,
+          newUsername: $newUsername,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      editingUser.set(null); // reset editing user
+      fetchUsers(); // refresh users list
+    } catch (error) {
+      console.error("Error updating user:", error);
+    }
+  };
+
+  const editUser = (user) => {
+    editingUser.set(user);
+    newEmail.set(user.email);
+    newUsername.set(user.username);
+  };
+
+  const cancelEdit = () => {
+    editingUser.set(null);
+    newEmail.set("");
+    newUsername.set("");
   };
 
   const deleteUser = async (email) => {
@@ -72,10 +112,18 @@
         <td>{user.email}</td>
         <td>{user.is_admin ? "Admin" : "User"}</td>
         <td>
-          {#if !user.is_admin}
-
-            <!-- delete user -->
-            <button on:click={() => deleteUser(user.email)}>
+          {#if $editingUser && $editingUser.email === user.email}
+            <div class="edit-form">
+              <input type="text" bind:value={$newUsername} placeholder="New username"/>
+              <input type="text" bind:value={$newEmail} placeholder="New email"/>
+              <div class="button-container">
+                <button class="cancel-button" on:click={cancelEdit}>Cancel</button>
+                <button class="save-button" on:click={updateUser}>Save</button>
+              </div>
+            </div>
+          {:else if !user.is_admin}
+            <button class="edit-button" on:click={() => editUser(user)}>Edit</button>
+            <button class="delete-button" on:click={() => deleteUser(user.email)}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -143,16 +191,58 @@
     border-bottom-right-radius: 10px;
   }
 
-  button {
+  .edit-button,
+  .save-button,
+  .cancel-button {
+    width: 30%;
+    padding: 10px;
+    background-color: #333;
+    border: none;
+    border-radius: 5px;
+    color: #bdfffd;
+    font-size: 16px;
+    cursor: pointer; 
+  }
+
+  .edit-button:hover,
+  .save-button:hover,
+  .cancel-button:hover {
+    background-color: #bdfffd;
+    color: #242424;
+  }
+
+  .delete-button {
     background-color: red;
     color: white;
     border: none;
-    padding: 5px 10px;
+    padding: 8px 15px;
     cursor: pointer;
     border-radius: 4px;
   }
 
-  button:hover {
+  .delete-button:hover {
     background-color: darkred;
+  }
+
+  .edit-form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .edit-form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 2px solid #ccc651;
+    border-radius: 5px;
+    background-color: #333;
+    color: #bdfffd;
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+    gap: 2%;
   }
 </style>

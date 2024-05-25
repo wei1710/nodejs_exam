@@ -30,6 +30,35 @@ router.get("/api/users/:email", async (req, res) => {
   }
 });
 
+//-- *********************************** UPDATE USER *********************** --//
+router.put("/api/users/:email", async (req, res) => {
+  const { email } = req.params;
+  const { newEmail, newUsername } = req.body;
+
+  if (!email) {
+    return res.status(400).json({ error: "Email is required" });
+  }
+
+  if (!newEmail && !newUsername) {
+    return res.status(400).json({ error: "New email or username is required"});
+  }
+
+  try {
+    const updateFields = {};
+    if (newEmail) updateFields.email = newEmail;
+    if (newUsername) updateFields.username = newUsername;
+
+    const updateUser = await db.users.updateOne({ email: email }, { $set: updateFields });
+    if (updateUser.matchedCount === 0) {
+      return res.status(400).json({ error: "User not found" });
+    }
+    res.json({ message: "User updated successfully" });
+  } catch(error) {
+    console.error("Error updating user:", error);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
 //-- *********************************** DELETE USER *********************** --//
 router.delete("/api/users/:email", async (req, res) => {
   const { email } = req.params;
