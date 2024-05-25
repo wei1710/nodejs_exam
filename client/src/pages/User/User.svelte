@@ -166,7 +166,7 @@
 
   /* --*********************************** TABLE *********************** -- */
   table {
-    margin-top: 3%;
+    margin-top: -3.25%;
     width: 97%;
     border-collapse: separate;
     border-spacing: 0;
