@@ -80,7 +80,7 @@
   <input
     id="add-movie-input"
     type="text"
-    placeholder="Enter IMDb ID to add a movie"
+    placeholder="Enter IMDB ID"
     bind:value={$newMovieId}
   />
   <button id="add-movie-button" on:click={addMovie}>Add Movie</button>
