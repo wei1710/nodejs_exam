@@ -64,10 +64,6 @@
     }
   }
 
-  function goToSignup() {
-    navigate("/signup");
-  }
-
   function goToForgotPassword() {
     navigate("/forgot_password");
   }
