@@ -44,27 +44,14 @@
         return "Failed to send password reset email. Please try again!";
     }
   }
-
-  function goToLogin() {
-    navigate("/login");
-  }
 </script>
 
-<div class="container">
-  <div class="auth-wrapper">
-    <div class="title"><span>Forgot Password</span></div>
+<div class="forgot-password-container">
+  <div class="forgot-password-header">Forgot Password</div>
     <form on:submit={forgotPassword}>
-      <div class="row">
-        <input type="email" name="email" placeholder="Email" required />
-      </div>
-      <div class="row button">
-        <input type="submit" value="Send" />
-      </div>
-      <div class="login-link">
-        Login <button on:click={goToLogin}>Login now</button>
-      </div>
+      <input type="email" name="email" placeholder="email" required class="forgot-password-input" />
+      <input type="submit" class="forgot-password-button" value="Reset Password" />
     </form>
   </div>
-</div>
 
 <Toaster />

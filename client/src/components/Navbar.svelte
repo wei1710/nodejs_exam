@@ -59,7 +59,7 @@
 
         {#if $user}
           <Link to="/user">User</Link>
-          <button on:click={logOut} >Logout</button>
+          <input type="button" class="logout-button" on:click={logOut} value="Logout" />
         {/if}
       </div>
     </nav>
@@ -85,7 +85,7 @@
       <Signup />
     </Route>
 
-    <PrivateRoute path="/user">
+    <PrivateRoute path="/user" let:location>
       <User />
     </PrivateRoute>
   </main>

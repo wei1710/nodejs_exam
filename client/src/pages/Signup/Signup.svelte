@@ -69,36 +69,16 @@
         return "Failed to signup. Please try again!";
     }
   }
-
-  function goToLogin() {
-    navigate("/login");
-  }
 </script>
 
-<div class="container">
-  <div class="auth-wrapper">
-    <div class="title"><span>Signup</span></div>
+<div class="signup-container">
+  <div class="signup-header">Signup
     <form on:submit={signup}>
-      <div class="row">
-        <input type="email" name="email" placeholder="Email" required />
-      </div>
-      <div class="row">
-        <input type="text" name="username" placeholder="Username" required />
-      </div>
-      <div class="row">
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          required
-        />
-      </div>
-      <div class="row button">
-        <input type="submit" value="Signup" />
-      </div>
-      <div class="login-link">
-        Already an user <button on:click={goToLogin}>Login now</button>
-      </div>
+        <input type="email" name="email" placeholder="Email" required class="signup-input" />
+        <input type="text" name="username" placeholder="Username" required class="signup-input" />
+        <input type="password" name="password" placeholder="Password" required class="signup-input" />
+        <input type="submit" class="signup-button" value="Signup" />
     </form>
   </div>
 </div>
+

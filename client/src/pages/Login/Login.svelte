@@ -107,66 +107,6 @@
   <input type="text" name="username" placeholder="Username" required class="login-input" />
   <input type="password" name="password" placeholder="Password" required class="login-input" />
   <input type="submit" class="login-button" value="Login" />
-  <div class="signup-link">
-    <button on:click={goToSignup}>Not a user yet? Signup now</button>
-  </div>
-  <div class="reset-link">
-    <button on:click={goToForgotPassword}>Forgot password?</button>
-  </div>
+  <input type="button" class="forgot-password-button" on:click={goToForgotPassword} value="Forgot password?"/>
 </form>
 </div>
-<style>
-  .login-container {
-    background-color: #031926;
-    max-width: 440px;
-    padding: 20px;
-    margin: 170px auto;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  }
-
-  .login-header {
-    color: #bdfffd;
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 24px;
-  }
-
-  .login-input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #333;
-    border-radius: 5px;
-    background-color: #242424;
-    color: #bdfffd;
-  }
-
-  .login-button {
-    width: 100%;
-    padding: 10px;
-    background-color: #333;
-    border: none;
-    border-radius: 5px;
-    color: #bdfffd;
-    font-size: 16px;
-    cursor: pointer;
-  }
-
-  .login-button:hover {
-    background-color: #bdfffd;
-    color: #242424;
-  }
-
-  .signup-link,
-  .reset-link {
-    color: #bdfffd;
-    display: block;
-    text-align: center;
-    margin-top: 10px;
-  }
-  .signup-link:hover button,
-  .reset-link:hover button {
-    color: #bdfffd;
-  }
-</style>

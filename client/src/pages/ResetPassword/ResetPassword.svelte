@@ -53,35 +53,15 @@
         return "Failed to reset password. Please try again!";
     }
   }
-
-  function goToLogin() {
-    navigate("/login");
-  }
 </script>
 
-<div class="container">
-  <div class="auth-wrapper">
-    <div class="title"><span>Reset Password</span></div>
+<div class="reset-password-container">
+  <div class="reset-password-header">Reset Password</div>
     <form on:submit={resetPassword}>
-      <div class="row">
-        <input type="password" name="password" placeholder="New Password" required />
-      </div>
-      <div class="row">
-        <input
-          type="password"
-          name="confirm-password"
-          placeholder="Confirm New Password"
-          required
-        />
-      </div>
-      <div class="row button">
-        <input type="submit" value="Reset Password" />
-      </div>
-      <div class="login-link">
-        Login <button on:click={goToLogin}>Login now</button>
-      </div>
+      <input type="password" name="password" placeholder="New Password" required class="reset-password-input" />
+      <input type="password" name="password" placeholder="Confirm Password" required class="reset-password-input" />
+      <input type="submit" class="reset-password-button" value="Reset Password" />
     </form>
   </div>
-</div>
 
 <Toaster />
