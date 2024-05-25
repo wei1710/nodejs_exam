@@ -8,6 +8,7 @@
   import Signup from "../pages/Signup/Signup.svelte";
   import User from "../pages/User/User.svelte";
   import Movies from "../pages/Movies/Movies.svelte";
+  import Admin from "../pages/Admin/Admin.svelte";
   import PrivateRoute from "../util/PrivateRoute.svelte";
   import { user, isAuthenticated, BASE_URL } from "../stores/store.js";
   
@@ -59,7 +60,7 @@
         {/if}
 
         {#if $user}
-          <Link to="/user">User</Link>
+          <Link to="/movies">User</Link>
           <input type="button" class="logout-button" on:click={logOut} value="Logout" />
         {/if}
       </div>
@@ -100,6 +101,14 @@
 
     <!-- <PrivateRoute path="/movies" let:location>
       <Movies />
+    </PrivateRoute> -->
+
+    <Route path="/admin">
+      <Admin />
+    </Route>
+    
+    <!-- <PrivateRoute path="/admin" let:location>
+      <Admin />
     </PrivateRoute> -->
   </main>
 </Router>

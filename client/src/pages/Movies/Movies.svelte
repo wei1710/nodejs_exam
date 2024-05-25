@@ -50,13 +50,18 @@
 <style>
   #search-bar {
     margin-top: 5%;
-    margin-left: 99%;
-    padding: 10px;
     width: 20%;
+    margin-left: 99%;
+    border: 2px solid #ccc651;
+    border-radius: 5px;
+    background-color: #333;
+    color: #bdfffd;
     box-sizing: border-box;
+    padding: 10px;
   }
 
   .movies-list {
+    margin-top: -3%;
     display: flex;
     flex-wrap: wrap;
     gap: 2%;

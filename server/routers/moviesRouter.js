@@ -58,6 +58,7 @@ router.post("/api/movies", async (req, res) => {
   }
 });
 
+//-- *********************************** DELETE MOVIES *********************** --//
 router.delete("/api/movies/:title", async (req, res) => {
   let { title } = req.params;
   if (!title) {

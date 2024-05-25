@@ -1,0 +1,232 @@
+<script>
+  import { onMount } from "svelte";
+  import { writable } from "svelte/store";
+  import Navbar from "../../components/Navbar.svelte";
+
+  let movies = [];
+  let searchQuery = writable(""); // bind search input
+  let newMovieId = writable("");
+
+  const fetchMovies = async () => {
+    try {
+      const response = await fetch("/api/movies");
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      movies = data;
+    } catch (error) {
+      console.error("Error fetching:", error);
+    }
+  };
+
+  const addMovie = async () => {
+    const imdbId = $newMovieId;
+    try {
+      const response = await fetch("/api/movies", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ imdbId }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      newMovieId.set(""); // clear input field
+      fetchMovies(); // refresh movie list
+    } catch (error) {
+      console.error("Error adding movie:", error);
+    }
+  };
+
+  const deleteMovie = async (title) => {
+    try {
+      const response = await fetch(`/api/movies/${encodeURIComponent(title)}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      fetchMovies(); // Refresh movie list
+    } catch (error) {
+      console.error("Error deleting movie:", error);
+    }
+  };
+
+  onMount(fetchMovies);
+</script>
+
+<Navbar />
+
+<!-- search bar -->
+<div>
+  <input
+    id="search-bar"
+    type="text"
+    placeholder="Search movies by title"
+    bind:value={$searchQuery}
+  />
+</div>
+
+<!-- add movies -->
+<div>
+  <input
+    id="add-movie-input"
+    type="text"
+    placeholder="Enter IMDb ID to add a movie"
+    bind:value={$newMovieId}
+  />
+  <button id="add-movie-button" on:click={addMovie}>Add Movie</button>
+</div>
+
+<div class="movies-list">
+  {#each movies.filter( (movie) => movie.Title.toLowerCase().includes($searchQuery.toLowerCase()) ) as movie}
+    <div class="movie-card">
+      <div class="movie-title">
+        <h2>{movie.Title}</h2>
+      </div>
+
+      <div class="image-container">
+        <img src={movie.Poster} alt={`Poster of ${movie.Title}`} />
+      </div>
+      <div class="movie-info">
+        <p><strong>Year:</strong> {movie.Year}</p>
+        <p class="genre"><strong>Genre:</strong> {movie.Genre}</p>
+        <p class="rate"><strong>Rating:</strong> {movie.imdbRating}</p>
+      </div>
+
+      <!-- delete movie -->
+      <div class="actions">
+        <button on:click={() => deleteMovie(movie.Title)}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            width="16"
+            height="16"
+          >
+            <path
+              d="M3 6l3 16.125A2.978 2.978 0 0 0 8.963 24h6.074a2.978 2.978 0 0 0 2.963-1.875L21 6H3zM14 3V2a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v1H5v2h14V3h-5zM10 2h4v1h-4V2zm1 7h2v10h-2V9zm-4 0h2v10H7V9zm10 0h-2v10h2V9z"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
+  {/each}
+</div>
+
+<style>
+  #search-bar,
+  #add-movie-input,
+  #add-movie-button {
+    margin-left: 99%;
+    border: 2px solid #ccc651;
+    border-radius: 5px;
+    background-color: #333;
+    color: #bdfffd;
+    box-sizing: border-box;
+    padding: 10px;
+  }
+
+  #add-movie-input,
+  #add-movie-button {
+    margin-top: 1%;
+  }
+  
+  #search-bar {
+    margin-top: 5%;
+    width: 20%;
+  }
+
+  #add-movie-input {
+    width: 15%;
+  }
+
+  #add-movie-button {
+    width: 10%;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  #add-movie-button:hover {
+    background-color: #bdfffd;
+    color: #242424;
+  }
+
+  .movies-list {
+    margin-top: -11.5%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2%;
+    justify-content: center;
+  }
+
+  .movie-card {
+    background-color: #333;
+    border: 2px solid #ccc651;
+    border-radius: 10px;
+    padding: 20px;
+    width: 22%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: 2%;
+  }
+
+  .movie-card img {
+    width: 100%;
+    border-radius: 10px;
+    object-fit: cover;
+  }
+
+  .movie-title {
+    height: 3em;
+    overflow: hidden;
+  }
+
+  .movie-title h2 {
+    margin: 0;
+    font-size: 1.2em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .movie-card p {
+    margin: 0.5em 0;
+  }
+
+  .genre {
+    height: 2.5em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  .actions button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+
+  .actions button:hover {
+    background-color: darkred;
+  }
+</style>

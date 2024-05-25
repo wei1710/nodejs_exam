@@ -44,8 +44,15 @@
 </script>
 
 <Navbar />
+
+<!-- search bar -->
 <div>
-  <input id="search-bar" type="text" placeholder="Search by email" bind:value={$searchQuery} />
+  <input
+    id="search-bar"
+    type="text"
+    placeholder="Search by email"
+    bind:value={$searchQuery}
+  />
 </div>
 <table>
   <thead>
@@ -57,13 +64,17 @@
     </tr>
   </thead>
   <tbody>
-    {#each users.filter(user => user.email.toLowerCase().includes($searchQuery.toLowerCase())) as user}
+    {#each users.filter((user) => user.email
+        .toLowerCase()
+        .includes($searchQuery.toLowerCase())) as user}
       <tr>
         <td>{user.username}</td>
         <td>{user.email}</td>
         <td>{user.is_admin ? "Admin" : "User"}</td>
         <td>
           {#if !user.is_admin}
+
+            <!-- delete user -->
             <button on:click={() => deleteUser(user.email)}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -74,8 +85,8 @@
                 <path
                   d="M3 6l3 16.125A2.978 2.978 0 0 0 8.963 24h6.074a2.978 2.978 0 0 0 2.963-1.875L21 6H3zM14 3V2a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v1H5v2h14V3h-5zM10 2h4v1h-4V2zm1 7h2v10h-2V9zm-4 0h2v10H7V9zm10 0h-2v10h2V9z"
                 />
-              </svg></button
-            >
+              </svg>
+            </button>
           {/if}
         </td>
       </tr>
@@ -86,26 +97,50 @@
 <style>
   #search-bar {
     margin-top: 5%;
-    margin-left: 99%;
-    padding: 10px;
     width: 20%;
+    margin-left: 99%;
+    border: 2px solid #ccc651;
+    border-radius: 5px;
+    background-color: #333;
+    color: #bdfffd;
     box-sizing: border-box;
+    padding: 10px;
   }
 
   table {
     margin-top: 3%;
     width: 97%;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: hidden;
   }
 
   th,
   td {
     padding: 10px;
-    border: 1px solid #ddd;
+    border: 2px solid #ccc651;
   }
 
   th {
     background-color: #333;
+  }
+
+  /* First row */
+  th:first-child {
+    border-top-left-radius: 10px;
+  }
+
+  th:last-child {
+    border-top-right-radius: 10px;
+  }
+
+  /* Last row */
+  tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 10px;
+  }
+
+  tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 10px;
   }
 
   button {
