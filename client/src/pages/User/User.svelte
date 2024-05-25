@@ -114,8 +114,8 @@
         <td>
           {#if $editingUser && $editingUser.email === user.email}
             <div class="edit-form">
-              <input type="text" bind:value={$newUsername} placeholder="New username"/>
-              <input type="text" bind:value={$newEmail} placeholder="New email"/>
+              <input type="text" bind:value={$newUsername} placeholder="Username"/>
+              <input type="text" bind:value={$newEmail} placeholder="Email"/>
               <div class="button-container">
                 <button class="cancel-button" on:click={cancelEdit}>Cancel</button>
                 <button class="save-button" on:click={updateUser}>Save</button>

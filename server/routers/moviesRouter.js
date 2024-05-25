@@ -32,8 +32,8 @@ router.get("/api/movies/", async (req, res) => {
     const movies = await db.movies.find().toArray();
     const findMovies = movies.filter(movie =>
       movie.title.toLowerCase().includes(title.toLowerCase()));
-      res.json(findMovies);
-  } catch(error) {
+    res.json(findMovies);
+  } catch (error) {
     console.error("Error fetching movies:", error);
     res.status(500).json({ error: "Server error" });
   }
@@ -54,6 +54,36 @@ router.post("/api/movies", async (req, res) => {
 
     res.json({ movie });
   } catch (error) {
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+//-- *********************************** UPDATE MOVIES *********************** --//
+router.put("/api/movies/:title", async (req, res) => {
+  const { title } = req.params;
+  const { newTitle, newYear, newGenre } = req.body;
+
+  if (!title) {
+    return res.status(400).json({ error: "Title is required" });
+  }
+
+  if (!newTitle && !newYear && !newGenre) {
+    return res.status(400).json({ error: "New title, year, or genre is required" });
+  }
+
+  try {
+    const updateFields = {};
+    if (newTitle) updateFields.Title = newTitle;
+    if (newYear) updateFields.Year = newYear;
+    if (newGenre) updateFields.Genre = newGenre;
+
+    const updateMovie = await db.movies.updateOne({ Title: title }, { $set: updateFields });
+    if (updateMovie.matchedCount === 0) {
+      return res.status(400).json({ error: "Movie not found" });
+    }
+    res.json({ message: "Movie updated successfully" });
+  } catch (error) {
+    console.error("Error updating movie:", error);
     res.status(500).json({ error: "Server error" });
   }
 });

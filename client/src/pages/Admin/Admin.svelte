@@ -6,6 +6,10 @@
   let movies = [];
   let searchQuery = writable(""); // bind search input
   let newMovieId = writable("");
+  let editingMovie = writable(null); // store movie being edited
+  let newTitle = writable("");
+  let newYear = writable("");
+  let newGenre = writable("");
 
   const fetchMovies = async () => {
     try {
@@ -42,6 +46,46 @@
     } catch (error) {
       console.error("Error adding movie:", error);
     }
+  };
+
+  const updateMovie = async () => {
+    try {
+      const title = $editingMovie.Title;
+      const response = await fetch(`/api/movies/${title}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          newTitle: $newTitle,
+          newYear: $newYear,
+          newGenre: $newGenre,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      editingMovie.set(null);  // reset editing movie
+      fetchMovies(); // refresh movies list
+    } catch(error) {
+      console.error("Error updating movie:", error);
+    }
+  };
+
+  const editMovie = (movie) => {
+    editingMovie.set(movie);
+    newTitle.set(movie.Title);
+    newYear.set(movie.Year);
+    newGenre.set(movie.Genre);
+  };
+
+  const cancelEdit = () => {
+    editingMovie.set(null);
+    newTitle.set("");
+    newYear.set("");
+    newGenre.set("");
   };
 
   const deleteMovie = async (title) => {
@@ -102,21 +146,34 @@
         <p class="rate"><strong>Rating:</strong> {movie.imdbRating}</p>
       </div>
 
-      <!-- delete movie -->
-      <div class="actions">
-        <button on:click={() => deleteMovie(movie.Title)}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            width="16"
-            height="16"
-          >
-            <path
-              d="M3 6l3 16.125A2.978 2.978 0 0 0 8.963 24h6.074a2.978 2.978 0 0 0 2.963-1.875L21 6H3zM14 3V2a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v1H5v2h14V3h-5zM10 2h4v1h-4V2zm1 7h2v10h-2V9zm-4 0h2v10H7V9zm10 0h-2v10h2V9z"
-            />
-          </svg>
-        </button>
-      </div>
+      <!-- edit movie -->
+      {#if $editingMovie && $editingMovie.Title === movie.Title}
+        <div class="edit-form">
+          <input type="text" bind:value={$newTitle} placeholder="Title" />
+          <input type="text" bind:value={$newYear} placeholder="Year" />
+          <input type="text" bind:value={$newGenre} placeholder="Genre" />
+          <div class="button-container">
+            <button class="cancel-button" on:click={cancelEdit}>Cancel</button>
+            <button class="save-button" on:click={updateMovie}>Save</button>
+          </div>
+        </div>
+      {:else}
+        <div class="actions">
+          <button class="edit-button" on:click={() => editMovie(movie)}>Edit</button>
+          <button class="delete-button" on:click={() => deleteMovie(movie.Title)}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              width="16"
+              height="16"
+            >
+              <path
+                d="M3 6l3 16.125A2.978 2.978 0 0 0 8.963 24h6.074a2.978 2.978 0 0 0 2.963-1.875L21 6H3zM14 3V2a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v1H5v2h14V3h-5zM10 2h4v1h-4V2zm1 7h2v10h-2V9zm-4 0h2v10H7V9zm10 0h-2v10h2V9z"
+              />
+            </svg>
+          </button>
+        </div>
+      {/if}
     </div>
   {/each}
 </div>
@@ -169,7 +226,7 @@
   }
 
   .movie-card {
-    background-color: #333;
+    background-color: #242424;
     border: 2px solid #ccc651;
     border-radius: 10px;
     padding: 20px;
@@ -217,16 +274,66 @@
     margin-top: 10px;
   }
 
-  .actions button {
+  .edit-button,
+  .save-button,
+  .cancel-button {
+    width: 30%;
+    padding: 10px;
+    background-color: #333;
+    border: none;
+    border-radius: 5px;
+    color: #bdfffd;
+    font-size: 16px;
+    cursor: pointer; 
+  }
+
+  .edit-button:hover,
+  .save-button:hover,
+  .cancel-button:hover {
+    background-color: #bdfffd;
+    color: #242424;
+  }
+
+  .delete-button {
     background-color: red;
     color: white;
     border: none;
-    padding: 5px 10px;
+    padding: 7px 15px;
     cursor: pointer;
     border-radius: 4px;
   }
 
-  .actions button:hover {
+  .delete-button:hover {
     background-color: darkred;
+  }
+
+  .edit-form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .edit-form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 2px solid #ccc651;
+    border-radius: 5px;
+    background-color: #333;
+    color: #bdfffd;
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+    gap: 2%;
+    
+  }
+
+  .actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    gap: 2%;
   }
 </style>
