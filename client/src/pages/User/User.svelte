@@ -1,6 +1,5 @@
 <script>
   import { onMount } from "svelte";
-  import { BASE_URL } from "../../stores/store";
   import { fetchGet } from "../../util/api";
   import Navbar from "../../components/Navbar.svelte";
   import { writable } from "svelte/store";
