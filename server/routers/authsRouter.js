@@ -157,17 +157,29 @@ router.post("/api/login", async (req, res) => {
       }
 
       const sessionId = generateUniqueIdentifier();
-
       req.session.session_id = sessionId;
 
       try {
         //-- ********************* SAVE SESSIONID TO THE USER IN THE DB *********************** --//
         await db.users.updateOne({ username: username }, { $set: { session_id: sessionId } });
+
+        // Explicitly save the session
+        req.session.save((err) => {
+          if (err) {
+            console.error("Error saving session: ", err);
+            return res.status(500).json({ error: "Internal server error!" });
+          }
+
+          console.log("Session ID set and saved:", req.session.session_id); // Debug log
+          return res.status(200).json({ message: "Login successful!" });
+        });
+        
+        // return res.status(200).json({ message: "Login successful!" });
+
       } catch (error) {
         console.error("Error updating user session: ", error);
         return res.status(500).json({ error: "Internal server error!" });
       }
-      return res.status(200).json({ message: "Login successful!" });
     } else {
       return res.status(401).json({ error: "Invalid username or password!" });
     }
@@ -179,15 +191,16 @@ router.post("/api/login", async (req, res) => {
 
 //-- *************************************** HAS LOGIN *********************** --//
 router.get("/api/has_login", async (req, res) => {
+  console.log("Cookies:", req.cookies);
+  console.log("Session:", req.session);
+
   const sessionId = req.session.session_id;
+  console.log("Session ID in request:", sessionId);
 
   try {
-    if (!sessionId) {
-      return res.status(401).json({ isLoggedin: false });
-    }
-
     const user = await db.users.findOne({ session_id: sessionId });
-
+    console.log("User found with session ID:", user);
+    
     if (user) {
       return res.status(200).json({ isLoggedin: true, user });
     } else {
@@ -276,7 +289,12 @@ router.get("/api/logout", async (req, res) => {
 
   try {
     //-- ******** UPDATE SESSION ID TO NULL IN DB FOR USER WITH MATCHING SESSION ID ************* --//
-    await db.users.updateOne({ session_id: sessionId }, { $set: { session_id: null } });
+    const result = await db.users.updateOne({ session_id: sessionId }, { $set: { session_id: null } });
+
+    if (result.modifiedCount === 0) {
+      console.error("No user found with the given session ID");
+      return res.status(404).send("No user found with the given session ID");
+    }
 
     req.session.destroy((error) => {
       if (error) {

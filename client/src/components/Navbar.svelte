@@ -15,7 +15,7 @@
   //-- *********************************** LOGOUT *********************** --//
   async function logOut() {
     try {
-      const response = await fetch(BASE_URL +"/api/logout", {
+      const response = await fetch("/api/logout", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -98,13 +98,13 @@
       <User />
     </PrivateRoute> -->
 
-    <Route path="/movies">
+    <!-- <Route path="/movies">
       <Movies />
-    </Route>
+    </Route> -->
 
-    <!-- <PrivateRoute path="/movies" let:location>
+    <PrivateRoute path="/movies" let:location>
       <Movies />
-    </PrivateRoute> -->
+    </PrivateRoute>
 
     <Route path="/admin">
       <Admin />

@@ -13,14 +13,15 @@
     const formData = new FormData(event.target);
     const username = formData.get("username");
     const password = formData.get("password");
+
     try {
       const response = await fetch("/api/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ username, password }),
-        credentials: "include"
+        credentials: "include",
+        body: JSON.stringify({ username, password })
       });
 
       if (response.ok) {
@@ -72,13 +73,14 @@
   async function checkLoginStatus() {
     try {
       const response = await fetch("/api/has_login", {
+        method: "GET",
         credentials: "include"
       });
       if (response.ok) {
         const data = await response.json();
         console.log("Check login status response data:", data);
         isAuthenticated.set(true);
-        if (data.isLoggedIn) {
+        if (data.isLoggedIn === true) {
           user.set(true);
           localStorage.setItem("isAuthenticated", "true");
           localStorage.setItem("user", JSON.stringify(data.user));
@@ -95,6 +97,7 @@
       toast.error("Failed to check login status. Please try again later.");
     }
   }
+
 </script>
 
 <!-- *********************************** LOGIN FORM *********************** --> 
