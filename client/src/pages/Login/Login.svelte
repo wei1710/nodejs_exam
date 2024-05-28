@@ -32,7 +32,12 @@
           localStorage.setItem("isAuthenticated", "true");
           localStorage.setItem("user", JSON.stringify(data.user));
           toast.success("Thank you for logging in!");
-          navigate("/movies");
+
+          if (data.user.is_admin) {
+            navigate("/admin");
+          } else {
+            navigate("/movies");
+          }
         } else {
           toast.error(data.error || "Failed to login. Please try again!");
         }
@@ -82,7 +87,12 @@
         user.set(data.user);
         localStorage.setItem("isAuthenticated", "true");
         localStorage.setItem("user", JSON.stringify(data.user));
-        navigate("/movies");
+
+        if (data.user.is_admin) {
+          navigate("/admin");
+        } else {
+          navigate("/movies");
+        }
       } else {
         isAuthenticated.set(false);
         user.set(null);

@@ -58,7 +58,7 @@ router.post("/api/signup", async (req, res) => {
 
     //-- *************************************** GENERATE VERIFICATION TOKEN *********************** --//
     const verificationToken = generateUniqueIdentifier();
-    
+
     const verificationKey = `verify_${verificationToken}`; // unique key for verification token
 
     const expirationTimestamp = Date.now() + 10 * 60 * 1000;
@@ -158,6 +158,7 @@ router.post("/api/login", async (req, res) => {
 
       const sessionId = generateUniqueIdentifier();
       req.session.session_id = sessionId;
+      req.session.is_admin = user.is_admin;
 
       try {
         //-- ********************* SAVE SESSIONID TO THE USER IN THE DB *********************** --//
@@ -168,9 +169,16 @@ router.post("/api/login", async (req, res) => {
             console.error("Error saving session: ", error);
             return res.status(500).json({ error: "Internal server error!" });
           }
-          return res.status(200).json({ message: "Login successful!" });
+          return res.status(200).json({
+            message: "Login successful!",
+            user: {
+              username: user.username,
+              email: user.email,
+              is_admin: user.is_admin
+            }
+          });
         });
-        
+
       } catch (error) {
         console.error("Error updating user session: ", error);
         return res.status(500).json({ error: "Internal server error!" });
@@ -198,9 +206,16 @@ router.get("/api/has_login", async (req, res) => {
   try {
     const user = await db.users.findOne({ session_id: sessionId });
     console.log("User found with session ID:", user);
-    
+
     if (user) {
-      return res.status(200).json({ isLoggedin: true, user });
+      return res.status(200).json({
+         isLoggedin: true, 
+         user: { 
+          username: user.username, 
+          email: user.email, 
+          is_admin: user.is_admin 
+        } 
+      });
     } else {
       return res.status(401).json({ isLoggedin: false });
     }
@@ -223,7 +238,7 @@ router.post("/api/forgot_password", async (req, res) => {
     const { username } = user;
     const resetToken = generateUniqueIdentifier();
     const resetTimestamp = Date.now();
-    
+
     await db.users.updateOne({ email: email }, { $set: { reset_token: resetToken, reset_timestamp: resetTimestamp } });
 
     const resetLink = `${process.env.BASE_URL}/reset_password?token=${resetToken}`;

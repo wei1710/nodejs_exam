@@ -63,8 +63,12 @@
         {/if}
 
         {#if $user}
-          <Link to="/movies">User</Link>
+          <Link to="/movies">Movies</Link>
           <input type="button" class="logout-button" on:click={logOut} value="Logout" />
+        {/if}
+
+        {#if $user && $user.is_admin}
+          <Link to="/users">Users</Link>
         {/if}
       </div>
     </nav>
@@ -106,13 +110,13 @@
       <Movies />
     </PrivateRoute>
 
-    <Route path="/admin">
+    <!-- <Route path="/admin">
       <Admin />
-    </Route>
+    </Route> -->
     
-    <!-- <PrivateRoute path="/admin" let:location>
+    <PrivateRoute path="/admin" let:location>
       <Admin />
-    </PrivateRoute> -->
+    </PrivateRoute>
   </main>
 </Router>
 
