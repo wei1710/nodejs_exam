@@ -87,6 +87,11 @@
     flex-direction: column;
     justify-content: space-between;
     margin-bottom: 2%;
+    transition: ease-in-out 0.2s;
+  }
+
+  .movie-card:hover {
+    transform: scale(1.05);
   }
 
   .movie-card img {
