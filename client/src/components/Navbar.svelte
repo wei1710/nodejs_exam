@@ -12,6 +12,7 @@
   import Admin from "../pages/Admin/Admin.svelte";
   import PrivateRoute from "../util/PrivateRoute.svelte";
   import { user, isAuthenticated } from "../stores/store.js";
+  import Theme from "../pages/Theme/Theme.svelte";
   import { checkLoginStatus } from "../util/auth";
 
   afterUpdate(() => {
@@ -26,6 +27,7 @@
       }
     });
   });
+
 
   //-- *********************************** LOGOUT *********************** --//
   async function logOut() {
@@ -71,6 +73,7 @@
         />
         <!-- <h2>Movie Portal</h2> -->
         <Link to="/">Home</Link>
+        <Theme />
       </div>
 
       <!-- --*********************************** TOP RIGHT NAVIGATION ***********************-- -->

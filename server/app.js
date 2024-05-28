@@ -21,6 +21,31 @@ liveReloadServer.server.once("connection", () => {
 
 app.use(connectLivereload());
 
+import http from "http";
+const server = http.createServer(app);
+
+import { Server } from "socket.io";
+const io = new Server(server);
+
+io.engine.use(sessionMiddleware);
+
+io.on("connection", (socket) => {
+  
+  // if (socket.request.session.theme) {
+  //   socket.emit('server-sends-theme', { theme: socket.request.session.theme });
+  // }
+
+  socket.on("client-sends-theme", (data) => {
+    console.log(socket.request.session);
+    // data.theme = socket.request.session.theme;
+
+    io.emit("server-sends-theme", data);
+  });
+
+});
+
+
+
 import { sessionMiddleware, ipRateLimiter, loginRateLimiter } from "./util/security/middleware.js";
 app.use(sessionMiddleware, ipRateLimiter);
 app.use("/api/login", loginRateLimiter);
