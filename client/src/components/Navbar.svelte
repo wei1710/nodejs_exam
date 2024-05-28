@@ -1,4 +1,5 @@
 <script>
+  import { afterUpdate, onMount } from "svelte";
   import { Router, Link, Route, navigate } from "svelte-navigator";
   import { toast, Toaster } from "svelte-french-toast";
   import Home from "../pages/Home/Home.svelte";
@@ -11,7 +12,21 @@
   import Admin from "../pages/Admin/Admin.svelte";
   import PrivateRoute from "../util/PrivateRoute.svelte";
   import { user, isAuthenticated } from "../stores/store.js";
-  
+  import { checkLoginStatus } from "../util/auth";
+
+  afterUpdate(() => {
+    localStorage.setItem("currentPath", window.location.pathname);
+  });
+
+  onMount(() => {
+    checkLoginStatus().then(() => {
+      const storedPath = localStorage.getItem("currentPath");
+      if (storedPath && storedPath !== window.location.pathname) {
+        navigate(storedPath, { replace: true });
+      }
+    });
+  });
+
   //-- *********************************** LOGOUT *********************** --//
   async function logOut() {
     try {
@@ -20,12 +35,13 @@
         headers: {
           "Content-Type": "application/json",
         },
-        credentials: "include"
+        credentials: "include",
       });
 
       if (response.ok) {
         sessionStorage.removeItem("isAuthenticated");
         sessionStorage.removeItem("user");
+        localStorage.removeItem("currentPath");
         user.set(null);
         isAuthenticated.set(false);
         toast.success("Sign out successful!");
@@ -40,17 +56,19 @@
       console.error("Error signing out: ", error);
     }
   }
-
 </script>
 
 <Toaster />
 <Router>
-
   <header>
     <!-- --*********************************** TOP LEFT LOGO ***********************-- -->
     <nav>
       <div id="left-side-nav">
-        <img src="/images/logo2-2-removebg.png" alt="Logo" class="navbar-logo" />
+        <img
+          src="/images/logo2-2-removebg.png"
+          alt="Logo"
+          class="navbar-logo"
+        />
         <!-- <h2>Movie Portal</h2> -->
         <Link to="/">Home</Link>
       </div>
@@ -62,13 +80,22 @@
           <Link to="/signup">Signup</Link>
         {/if}
 
-        {#if $user}
-          <Link to="/movies">Movies</Link>
-          <input type="button" class="logout-button" on:click={logOut} value="Logout" />
+        {#if $user && $user.is_admin}
+          <Link to="/admin">Admin</Link>
         {/if}
 
         {#if $user && $user.is_admin}
           <Link to="/users">Users</Link>
+        {/if}
+
+        {#if $user}
+          <Link to="/movies">Movies</Link>
+          <input
+            type="button"
+            class="logout-button"
+            on:click={logOut}
+            value="Logout"
+          />
         {/if}
       </div>
     </nav>
@@ -94,13 +121,13 @@
       <Signup />
     </Route>
 
-    <Route path="/users">
+    <!-- <Route path="/users">
       <User />
-    </Route>
+    </Route> -->
 
-    <!-- <PrivateRoute path="/users" let:location>
+    <PrivateRoute path="/users" isAdmin={true}>
       <User />
-    </PrivateRoute> -->
+    </PrivateRoute>
 
     <!-- <Route path="/movies">
       <Movies />
@@ -113,13 +140,12 @@
     <!-- <Route path="/admin">
       <Admin />
     </Route> -->
-    
-    <PrivateRoute path="/admin" let:location>
+
+    <PrivateRoute path="/admin" isAdmin={true}>
       <Admin />
     </PrivateRoute>
   </main>
 </Router>
 
 <style>
-
 </style>
