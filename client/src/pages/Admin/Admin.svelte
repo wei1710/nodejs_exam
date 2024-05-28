@@ -3,6 +3,7 @@
   import { writable } from "svelte/store";
   import { BASE_URL } from "../../stores/store";
   import Navbar from "../../components/Navbar.svelte";
+  import toast from "svelte-french-toast";
 
   let movies = [];
   let searchQuery = writable(""); // bind search input
@@ -44,6 +45,7 @@
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
+      toast.success("Movie added successfully!");
       newMovieId.set(""); // clear input field
       fetchMovies(); // refresh movie list
     } catch (error) {
