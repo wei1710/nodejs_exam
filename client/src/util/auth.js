@@ -21,7 +21,6 @@ export async function checkLoginStatus() {
           navigate(storedPath);
           localStorage.removeItem("currentPath");
         }
-
       } else {
         isAuthenticated.set(false);
         user.set(null);

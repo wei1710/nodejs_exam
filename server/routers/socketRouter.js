@@ -3,9 +3,12 @@ const router = Router();
 
 router.post("/api/theme", (req, res) => {
   req.session.theme = req.body.theme;
-  req.session.save();
-  
-  res.send("Theme saved");
+  req.session.save(error => {
+    if (error) {
+      return res.status(500).send("Failed to save theme to session");
+    }
+    res.send("Theme saved");
+  });
 });
 
 export default router;

@@ -4,9 +4,10 @@
 
 	export let path;
 	export let isAdmin = false;
+	export let primary = true;
 </script>
 
-<Route {path} let:params let:location let:navigate>
+<Route {path} let:params let:location let:navigate {primary}>
 	<PrivateRouteGuard {isAdmin}>
 		<slot {params} {location} {navigate} />
 	</PrivateRouteGuard>

@@ -104,23 +104,23 @@
     </nav>
   </header>
   <main>
-    <Route path="/">
+    <Route path="/" primary={false}>
       <Home />
     </Route>
 
-    <Route path="/login">
+    <Route path="/login" primary={false}>
       <Login />
     </Route>
 
-    <Route path="/forgot_password">
+    <Route path="/forgot_password" primary={false}>
       <ForgotPassword />
     </Route>
 
-    <Route path="/reset_password">
+    <Route path="/reset_password" primary={false}>
       <ResetPassword />
     </Route>
 
-    <Route path="/signup">
+    <Route path="/signup" primary={false}>
       <Signup />
     </Route>
 
@@ -128,7 +128,7 @@
       <User />
     </Route> -->
 
-    <PrivateRoute path="/users" let:location>
+    <PrivateRoute path="/users" let:location primary={false}>
       <User />
     </PrivateRoute>
 
@@ -136,7 +136,7 @@
       <Movies />
     </Route> -->
 
-    <PrivateRoute path="/movies" let:location>
+    <PrivateRoute path="/movies" let:location primary={false}>
       <Movies />
     </PrivateRoute>
 
@@ -144,7 +144,7 @@
       <Admin />
     </Route> -->
 
-    <PrivateRoute path="/admin" let:location>
+    <PrivateRoute path="/admin" let:location primary={false}>
       <Admin />
     </PrivateRoute>
   </main>
