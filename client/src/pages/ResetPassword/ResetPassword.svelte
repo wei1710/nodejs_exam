@@ -60,7 +60,7 @@
   <div class="reset-password-header">Reset Password</div>
     <form on:submit={resetPassword}>
       <input type="password" name="password" placeholder="New Password" required class="reset-password-input" />
-      <input type="password" name="password" placeholder="Confirm Password" required class="reset-password-input" />
+      <input type="password" name="confirm-password" placeholder="Confirm Password" required class="reset-password-input" />
       <input type="submit" class="reset-password-button" value="Reset Password" />
     </form>
   </div>
