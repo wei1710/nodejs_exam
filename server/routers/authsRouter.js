@@ -163,19 +163,14 @@ router.post("/api/login", async (req, res) => {
         //-- ********************* SAVE SESSIONID TO THE USER IN THE DB *********************** --//
         await db.users.updateOne({ username: username }, { $set: { session_id: sessionId } });
 
-        // Explicitly save the session
-        req.session.save((err) => {
-          if (err) {
-            console.error("Error saving session: ", err);
+        req.session.save((error) => {
+          if (error) {
+            console.error("Error saving session: ", error);
             return res.status(500).json({ error: "Internal server error!" });
           }
-
-          console.log("Session ID set and saved:", req.session.session_id); // Debug log
           return res.status(200).json({ message: "Login successful!" });
         });
         
-        // return res.status(200).json({ message: "Login successful!" });
-
       } catch (error) {
         console.error("Error updating user session: ", error);
         return res.status(500).json({ error: "Internal server error!" });

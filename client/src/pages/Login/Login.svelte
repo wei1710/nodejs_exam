@@ -77,7 +77,6 @@
     });
     if (response.ok) {
       const data = await response.json();
-      console.log("Check login status response data:", data);
       if (data.isLoggedin) {
         isAuthenticated.set(true);
         user.set(data.user);
