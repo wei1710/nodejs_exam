@@ -152,7 +152,7 @@
 <style>
   /* --*********************************** SEARCH BAR *********************** -- */
   #search-bar {
-    margin-top: 5%;
+    margin-top: 7%;
     width: 20%;
     margin-left: 99%;
     border: 2px solid #ccc651;
@@ -165,7 +165,7 @@
 
   /* --*********************************** TABLE *********************** -- */
   table {
-    margin-top: -3.25%;
+    margin-top: -3.3%;
     width: 97%;
     border-collapse: separate;
     border-spacing: 0;

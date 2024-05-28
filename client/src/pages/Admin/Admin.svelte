@@ -210,7 +210,7 @@
   }
   
   #search-bar {
-    margin-top: 5%;
+    margin-top: 7%;
     width: 20%;
   }
 
@@ -232,7 +232,7 @@
 
   /*-- *********************************** MOVIE *********************** --*/
   .movies-list {
-    margin-top: -11.5%;
+    margin-top: -11.7%;
     display: flex;
     flex-wrap: wrap;
     gap: 2%;

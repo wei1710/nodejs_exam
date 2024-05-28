@@ -56,7 +56,7 @@
 <style>
   /* --*********************************** SEARCH BAR *********************** --*/
   #search-bar {
-    margin-top: 5%;
+    margin-top: 7%;
     width: 20%;
     margin-left: 99%;
     border: 2px solid #ccc651;
@@ -69,7 +69,7 @@
 
   /*-- *********************************** MOVIE *********************** --*/
   .movies-list {
-    margin-top: -3%;
+    margin-top: -3.3%;
     display: flex;
     flex-wrap: wrap;
     gap: 2%;
