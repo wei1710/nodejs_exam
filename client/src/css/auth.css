@@ -68,7 +68,8 @@
   margin-top: 2%;
 }
 
-.logout-button {
+.logout-button,
+.toggle-theme {
   background: none;
   border: none;
   cursor: pointer;
@@ -77,6 +78,7 @@
   color: #bdfffd;
 }
 
-.logout-button:hover {
+.logout-button:hover,
+.toggle-theme:hover {
   color: white;
 }

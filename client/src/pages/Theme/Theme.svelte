@@ -52,9 +52,12 @@
   }
 </script>
 
-<button on:click={toggleTheme}>
-  Toggle Theme
-</button>
+<input 
+  type="button"
+  class="toggle-theme"
+  on:click={toggleTheme}
+  value="Toggle Theme"
+  />
 
 <style>
   :root[data-theme="light"] {
