@@ -1,6 +1,5 @@
 <script>
   import { fetchGet, fetchPost } from "../../util/api";
-  import { BASE_URL } from "../../stores/store.js";
   import { navigate } from "svelte-navigator";
   import { user, isAuthenticated } from "../../stores/store.js";
   import { toast, Toaster } from "svelte-french-toast";

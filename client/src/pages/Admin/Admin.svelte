@@ -1,7 +1,6 @@
 <script>
   import { onMount } from "svelte";
   import { writable } from "svelte/store";
-  import { BASE_URL } from "../../stores/store";
   import Navbar from "../../components/Navbar.svelte";
   import toast from "svelte-french-toast";
 

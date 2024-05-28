@@ -10,7 +10,7 @@
   import Movies from "../pages/Movies/Movies.svelte";
   import Admin from "../pages/Admin/Admin.svelte";
   import PrivateRoute from "../util/PrivateRoute.svelte";
-  import { user, isAuthenticated, BASE_URL } from "../stores/store.js";
+  import { user, isAuthenticated } from "../stores/store.js";
   
   //-- *********************************** LOGOUT *********************** --//
   async function logOut() {
