@@ -11,7 +11,8 @@
   import Admin from "../pages/Admin/Admin.svelte";
   import PrivateRoute from "../util/PrivateRoute.svelte";
   import { user, isAuthenticated } from "../stores/store.js";
-  
+  import Theme from "../pages/Theme/Theme.svelte";
+
   //-- *********************************** LOGOUT *********************** --//
   async function logOut() {
     try {
@@ -53,6 +54,7 @@
         <img src="/images/logo2-2-removebg.png" alt="Logo" class="navbar-logo" />
         <!-- <h2>Movie Portal</h2> -->
         <Link to="/">Home</Link>
+        <Theme />
       </div>
 
       <!-- --*********************************** TOP RIGHT NAVIGATION ***********************-- -->
