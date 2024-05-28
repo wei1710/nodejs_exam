@@ -191,11 +191,14 @@ router.post("/api/login", async (req, res) => {
 
 //-- *************************************** HAS LOGIN *********************** --//
 router.get("/api/has_login", async (req, res) => {
-  console.log("Cookies:", req.cookies);
   console.log("Session:", req.session);
 
   const sessionId = req.session.session_id;
   console.log("Session ID in request:", sessionId);
+
+  if (!sessionId) {
+    return res.status(401).json({ isLoggedin: false });
+  }
 
   try {
     const user = await db.users.findOne({ session_id: sessionId });
@@ -288,7 +291,6 @@ router.get("/api/logout", async (req, res) => {
   const sessionId = req.session.session_id;
 
   try {
-    //-- ******** UPDATE SESSION ID TO NULL IN DB FOR USER WITH MATCHING SESSION ID ************* --//
     const result = await db.users.updateOne({ session_id: sessionId }, { $set: { session_id: null } });
 
     if (result.modifiedCount === 0) {
@@ -301,7 +303,8 @@ router.get("/api/logout", async (req, res) => {
         console.error("Error destroying session: ", error);
         return res.status(500).send("Error logging out");
       } else {
-        return res.status(200).json({ message: "log out successful!" });
+        res.clearCookie('connect.sid'); // Clear the session cookie
+        return res.status(200).json({ message: "Log out successful!" });
       }
     });
   } catch (error) {

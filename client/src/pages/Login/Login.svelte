@@ -71,33 +71,39 @@
 
   //-- *********************************** CHECK IF ALREADY LOGIN *********************** --//
   async function checkLoginStatus() {
-    try {
-      const response = await fetch("/api/has_login", {
-        method: "GET",
-        credentials: "include"
-      });
-      if (response.ok) {
-        const data = await response.json();
-        console.log("Check login status response data:", data);
+  try {
+    const response = await fetch("/api/has_login", {
+      method: "GET",
+      credentials: "include"
+    });
+    if (response.ok) {
+      const data = await response.json();
+      console.log("Check login status response data:", data);
+      if (data.isLoggedin) {
         isAuthenticated.set(true);
-        if (data.isLoggedIn === true) {
-          user.set(true);
-          localStorage.setItem("isAuthenticated", "true");
-          localStorage.setItem("user", JSON.stringify(data.user));
-          navigate("/movies");
-        }
+        user.set(data.user);
+        localStorage.setItem("isAuthenticated", "true");
+        localStorage.setItem("user", JSON.stringify(data.user));
+        navigate("/movies");
       } else {
         isAuthenticated.set(false);
         user.set(null);
         localStorage.removeItem("isAuthenticated");
         localStorage.removeItem("user");
       }
-    } catch (error) {
-      console.error("Error checking login status: ", error);
-      toast.error("Failed to check login status. Please try again later.");
+    } else {
+      isAuthenticated.set(false);
+      user.set(null);
+      localStorage.removeItem("isAuthenticated");
+      localStorage.removeItem("user");
     }
+  } catch (error) {
+    console.error("Error checking login status: ", error);
+    toast.error("Failed to check login status. Please try again later.");
   }
+}
 
+  checkLoginStatus();
 </script>
 
 <!-- *********************************** LOGIN FORM *********************** --> 
