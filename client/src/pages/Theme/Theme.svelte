@@ -49,6 +49,8 @@
       },
       body: JSON.stringify({ theme })
     });
+
+    applyTheme(theme);
   }
 </script>
 
