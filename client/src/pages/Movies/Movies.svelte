@@ -35,7 +35,7 @@
 <!-- *********************************** ALL MOVIES *********************** --> 
 <div class="movies-list">
   <!-- *********************************** FILTER MOVIE ON SEARCH *********************** -->
-  {#each movies.filter((movie) => movie.Title.toLowerCase().includes($searchQuery.toLowerCase())) as movie}
+  {#each movies.filter((movie) => movie.Title?.toLowerCase().includes($searchQuery.toLowerCase())) as movie}
     <div class="movie-card">
       <div class="movie-title">
         <h2>{movie.Title}</h2>
