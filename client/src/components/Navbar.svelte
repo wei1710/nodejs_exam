@@ -125,7 +125,7 @@
       <User />
     </Route> -->
 
-    <PrivateRoute path="/users" isAdmin={true}>
+    <PrivateRoute path="/users" let:location>
       <User />
     </PrivateRoute>
 
@@ -141,7 +141,7 @@
       <Admin />
     </Route> -->
 
-    <PrivateRoute path="/admin" isAdmin={true}>
+    <PrivateRoute path="/admin" let:location>
       <Admin />
     </PrivateRoute>
   </main>
