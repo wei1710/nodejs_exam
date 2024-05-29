@@ -16,16 +16,22 @@
   import { checkLoginStatus } from "../util/auth";
 
   afterUpdate(() => {
+    console.log("afterUpdate: storing current path", window.location.pathname);
     localStorage.setItem("currentPath", window.location.pathname);
   });
 
-  onMount(() => {
-    checkLoginStatus().then(() => {
-      const storedPath = localStorage.getItem("currentPath");
-      if (storedPath && storedPath !== window.location.pathname) {
-        navigate(storedPath, { replace: true });
-      }
-    });
+  onMount(async () => {
+    console.log("onMount: checking login status");
+    await checkLoginStatus();
+
+    const storedPath = localStorage.getItem("currentPath");
+    console.log("onMount: stored path", storedPath);
+    console.log("onMount: current path", window.location.pathname);
+
+    if (storedPath && storedPath !== window.location.pathname && $isAuthenticated) {
+      console.log("onMount: navigating to stored path", storedPath);
+      navigate(storedPath, { replace: true });
+    }
   });
 
 
