@@ -14,6 +14,7 @@
   import { user, isAuthenticated } from "../stores/store.js";
   import Theme from "../pages/Theme/Theme.svelte";
   import { checkLoginStatus } from "../util/auth";
+  import { fade } from "svelte/transition";
 
   afterUpdate(() => {
     console.log("afterUpdate: storing current path", window.location.pathname);
@@ -67,6 +68,7 @@
 </script>
 
 <Toaster />
+
 <Router>
   <header>
     <!-- --*********************************** TOP LEFT LOGO ***********************-- -->

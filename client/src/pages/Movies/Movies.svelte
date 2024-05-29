@@ -1,7 +1,9 @@
 <script>
-  import { onMount } from "svelte";
+  import { onDestroy, onMount } from "svelte";
   import { writable } from "svelte/store";
   import Navbar from "../../components/Navbar.svelte";
+  import MovieDetail from "../../components/Movies/MovieDetail.svelte";
+  import { selectedMovie } from "../../stores/store.js";
 
   let movies = [];
   let searchQuery = writable(""); // bind search input
@@ -22,7 +24,23 @@
     }
   };
 
+  const selectMovie = (movie) => {
+    selectedMovie.set(movie);
+  };
+
+  $: {
+    if ($selectedMovie) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }
+
   onMount(fetchMovies);
+
+  onDestroy(() => {
+    document.body.style.overflow = "auto";
+  });
 </script>
 
 <Navbar />
@@ -37,6 +55,7 @@
   <!-- *********************************** FILTER MOVIE ON SEARCH *********************** -->
   {#each movies.filter((movie) => movie.Title?.toLowerCase().includes($searchQuery.toLowerCase())) as movie}
     <div class="movie-card">
+      <button class="overlay-button" on:click={() => selectMovie(movie)}></button>
       <div class="movie-title">
         <h2>{movie.Title}</h2>
       </div>
@@ -44,6 +63,7 @@
       <div class="image-container">
         <img src={movie.Poster} alt={`Poster of ${movie.Title}`} />
       </div>
+
       <div class="movie-info">
         <p><strong>Year:</strong> {movie.Year}</p>
         <p class="genre"><strong>Genre:</strong> {movie.Genre}</p>
@@ -52,6 +72,8 @@
     </div>
   {/each}
 </div>
+
+<MovieDetail />
 
 <style>
   /* --*********************************** SEARCH BAR *********************** --*/
@@ -77,6 +99,7 @@
   }
 
   .movie-card {
+    position: relative;
     background-color: #242424;
     border: 2px solid #CCC651;
     border-radius: 10px;
@@ -88,6 +111,7 @@
     justify-content: space-between;
     margin-bottom: 2%;
     transition: ease-in-out 0.2s;
+    cursor: pointer;
   }
 
   .movie-card:hover {
@@ -122,5 +146,17 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+  }
+
+  .overlay-button {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 1;
   }
 </style>
