@@ -1,6 +1,8 @@
 import { Server } from "socket.io";
 import { sessionMiddleware } from "./security/middleware.js";
 
+let currentTheme = "dark"
+
 const setupSocketIO = (server) => {
   const io = new Server(server);
 
@@ -9,20 +11,22 @@ const setupSocketIO = (server) => {
   io.on("connection", (socket) => {
     console.log("A user connected");
 
-    const theme = socket.request.session.theme || "dark";
-    socket.emit("server-sends-theme", { theme });
-    console.log(`Sent current theme to new user: ${theme}`);
+    socket.emit("server-sends-theme", { theme: currentTheme });
+    console.log(`Sent current theme to new user: ${currentTheme}`);
 
     socket.on("client-sends-theme", (data) => {
+      currentTheme = data.theme;
+      console.log(`Theme changed to: ${data.theme}`);
+
+      io.emit("server-sends-theme", { theme: data.theme });
+
       socket.request.session.theme = data.theme;
-      socket.request.session.save((err) => {
-        if (err) {
-          console.error("Failed to save theme to session", err);
+      socket.request.session.save((error) => {
+        if (error) {
+          console.error("Failed to save theme to session", error);
           return;
         }
-        console.log(`Theme changed to: ${data.theme}`);
-        io.emit("server-sends-theme", { theme: data.theme });
-        console.log(`Broadcasted new theme to all users: ${data.theme}`);
+        console.log(`Session theme updated to: ${data.theme}`);
       });
     });
 

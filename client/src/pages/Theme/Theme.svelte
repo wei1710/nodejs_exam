@@ -1,12 +1,14 @@
 <script>
-  import io from "socket.io-client";
   import { onMount } from "svelte";
+  import { initializeThemeSocket, applyTheme, sendTheme, disconnectSocket } from "../../util/socketTheme.js";
+
+  export let socket;
+  export let isAdmin = false;
 
   let theme = "dark";
-  let socket;
 
   onMount(() => {
-    socket = io("http://localhost:8080");
+    socket = initializeThemeSocket();
 
     socket.on("server-sends-theme", (data) => {
       console.log("Received theme from server:", data);
@@ -14,32 +16,28 @@
       applyTheme(theme);
     });
 
-    socket.emit("client-sends-theme", { theme });
-    console.log("Initial theme sent to server:", theme);
-
     return () => {
-      socket.disconnect();
+      disconnectSocket();
     };
   });
 
-  function applyTheme(theme) {
-    document.documentElement.setAttribute("data-theme", theme);
-  }
-
   function toggleTheme() {
-    theme = theme === "dark" ? "light" : "dark";
-    console.log("Toggling theme:", theme);
-    socket.emit("client-sends-theme", { theme });
-
-    fetch("/api/theme", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ theme })
-    });
-
-    applyTheme(theme);
+    if (isAdmin) {
+      theme = theme === "dark" ? "light" : "dark";
+      console.log("Toggling theme:", theme);
+      
+      sendTheme(theme);
+  
+      fetch("/api/theme", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ theme })
+      });
+  
+      applyTheme(theme);
+    }
   }
 </script>
 
@@ -48,6 +46,7 @@
   class="toggle-theme"
   on:click={toggleTheme}
   value="Toggle Theme"
+  disabled={!isAdmin}
   />
 
 <style>

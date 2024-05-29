@@ -14,7 +14,16 @@
   import { user, isAuthenticated } from "../stores/store.js";
   import Theme from "../pages/Theme/Theme.svelte";
   import { checkLoginStatus } from "../util/auth";
-  import { fade } from "svelte/transition";
+  import { initializeThemeSocket, applyTheme } from "../util/socketTheme.js";
+
+  let socket;
+  let isAdmin = false;
+
+  $: {
+    if ($user) {
+      isAdmin = $user.is_admin;
+    }
+  }
 
   afterUpdate(() => {
     console.log("afterUpdate: storing current path", window.location.pathname);
@@ -24,6 +33,8 @@
   onMount(async () => {
     console.log("onMount: checking login status");
     await checkLoginStatus();
+
+    socket = initializeThemeSocket();
 
     const storedPath = localStorage.getItem("currentPath");
     console.log("onMount: stored path", storedPath);
@@ -81,7 +92,9 @@
         />
         <!-- <h2>Movie Portal</h2> -->
         <Link to="/">Home</Link>
-        <Theme />
+        {#if $user && $user.is_admin}
+        <Theme {socket} isAdmin={true}/>
+        {/if}
       </div>
 
       <!-- --*********************************** TOP RIGHT NAVIGATION ***********************-- -->
