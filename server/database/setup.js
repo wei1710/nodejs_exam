@@ -97,46 +97,6 @@ async function resetDatabase() {
       "Response": "True",
     },
     {
-      "Title": "Avatar: The Way of Water",
-      "Year": "2022",
-      "Rated": "PG-13",
-      "Released": "16 Dec 2022",
-      "Runtime": "192 min",
-      "Genre": "Action, Adventure, Fantasy",
-      "Director": "James Cameron",
-      "Writer": "James Cameron, Rick Jaffa, Amanda Silver",
-      "Actors": "Sam Worthington, Zoe Saldana, Sigourney Weaver",
-      "Plot": "Jake Sully lives with his newfound family formed on the extrasolar moon Pandora. Once a familiar threat returns to finish what was previously started, Jake must work with Neytiri and the army of the Na'vi race to protect their home.",
-      "Language": "English",
-      "Country": "United States",
-      "Awards": "Won 1 Oscar. 75 wins & 150 nominations total",
-      "Poster": "https://m.media-amazon.com/images/M/MV5BYjhiNjBlODctY2ZiOC00YjVlLWFlNzAtNTVhNzM1YjI1NzMxXkEyXkFqcGdeQXVyMjQxNTE1MDA@._V1_SX300.jpg",
-      "Ratings": [
-        {
-          "Source": "Internet Movie Database",
-          "Value": "7.5/10"
-        },
-        {
-          "Source": "Rotten Tomatoes",
-          "Value": "76%"
-        },
-        {
-          "Source": "Metacritic",
-          "Value": "67/100"
-        }
-      ],
-      "Metascore": "67",
-      "imdbRating": "7.5",
-      "imdbVotes": "496,335",
-      "imdbID": "tt1630029",
-      "Type": "movie",
-      "DVD": "28 Mar 2023",
-      "BoxOffice": "$684,075,767",
-      "Production": "N/A",
-      "Website": "N/A",
-      "Response": "True",
-    },
-    {
       "Title": "The Batman",
       "Year": "2022",
       "Rated": "PG-13",
@@ -372,46 +332,6 @@ async function resetDatabase() {
       "Type": "movie",
       "DVD": "15 Jun 2011",
       "BoxOffice": "$187,705,427",
-      "Production": "N/A",
-      "Website": "N/A",
-      "Response": "True",
-    },
-    {
-      "Title": "The Lord of the Rings: The Fellowship of the Ring",
-      "Year": "2001",
-      "Rated": "PG-13",
-      "Released": "19 Dec 2001",
-      "Runtime": "178 min",
-      "Genre": "Action, Adventure, Drama",
-      "Director": "Peter Jackson",
-      "Writer": "J.R.R. Tolkien, Fran Walsh, Philippa Boyens",
-      "Actors": "Elijah Wood, Ian McKellen, Orlando Bloom",
-      "Plot": "A meek Hobbit from the Shire and eight companions set out on a journey to destroy the powerful One Ring and save Middle-earth from the Dark Lord Sauron.",
-      "Language": "English, Sindarin",
-      "Country": "New Zealand, United States",
-      "Awards": "Won 4 Oscars. 125 wins & 127 nominations total",
-      "Poster": "https://m.media-amazon.com/images/M/MV5BN2EyZjM3NzUtNWUzMi00MTgxLWI0NTctMzY4M2VlOTdjZWRiXkEyXkFqcGdeQXVyNDUzOTQ5MjY@._V1_SX300.jpg",
-      "Ratings": [
-        {
-          "Source": "Internet Movie Database",
-          "Value": "8.9/10"
-        },
-        {
-          "Source": "Rotten Tomatoes",
-          "Value": "91%"
-        },
-        {
-          "Source": "Metacritic",
-          "Value": "92/100"
-        }
-      ],
-      "Metascore": "92",
-      "imdbRating": "8.9",
-      "imdbVotes": "2,004,643",
-      "imdbID": "tt0120737",
-      "Type": "movie",
-      "DVD": "28 Jun 2011",
-      "BoxOffice": "$316,115,420",
       "Production": "N/A",
       "Website": "N/A",
       "Response": "True",

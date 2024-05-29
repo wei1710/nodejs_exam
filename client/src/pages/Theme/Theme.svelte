@@ -23,13 +23,7 @@
   });
 
   function applyTheme(theme) {
-    console.log("Applying theme:", theme);
     document.documentElement.setAttribute("data-theme", theme);
-    console.log("Theme applied:", document.documentElement.getAttribute("data-theme"));
-
-    const rootStyles = getComputedStyle(document.documentElement);
-    console.log("Computed background color:", rootStyles.getPropertyValue("--background-color"));
-    console.log("Computed text color:", rootStyles.getPropertyValue("--text-color"));
   }
 
   function toggleTheme() {
