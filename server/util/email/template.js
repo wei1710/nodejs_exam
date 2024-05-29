@@ -8,6 +8,7 @@ background-color: #335E6E; color: white; text-decoration: none;
 border-radius: 5px;">Verify Email</a>
 `;
 
+//-- --*********************************** EXPIRED VERIFY EMAIL *********************** --//
 const expiredVerifyEmailTemplate = `
 <html>
 <head>

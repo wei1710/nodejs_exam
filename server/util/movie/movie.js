@@ -1,8 +1,5 @@
 import "dotenv/config";
 
-
-//OMDB-API
-
 //-- *********************************** GET ALL MOVIES *********************** --//
 function getMovie(imdbId) {
   const OMDB_URL = "http://www.omdbapi.com";

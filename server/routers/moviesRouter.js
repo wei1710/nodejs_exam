@@ -1,12 +1,9 @@
-import e, { Router } from "express";
+import { Router } from "express";
 import "dotenv/config";
 import { getMovie } from "../util/movie/movie.js";
 import db from "../database/connection.js";
 
 const router = Router();
-
-
-//OMDB-API
 
 //-- *********************************** GET ALL MOVIES *********************** --//
 router.get("/api/movies", async (req, res) => {

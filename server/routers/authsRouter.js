@@ -161,7 +161,7 @@ router.post("/api/login", async (req, res) => {
       req.session.is_admin = user.is_admin;
 
       try {
-        //-- ********************* SAVE SESSIONID TO THE USER IN THE DB *********************** --//
+        //-- ********************* SAVE SESSION ID TO THE USER IN THE DB *********************** --//
         await db.users.updateOne({ username: username }, { $set: { session_id: sessionId } });
 
         req.session.save((error) => {
@@ -313,7 +313,7 @@ router.get("/api/logout", async (req, res) => {
         console.error("Error destroying session: ", error);
         return res.status(500).send("Error logging out");
       } else {
-        res.clearCookie('connect.sid'); // Clear the session cookie
+        res.clearCookie("connect.sid"); // Clear the session cookie
         return res.status(200).json({ message: "Log out successful!" });
       }
     });
