@@ -4,10 +4,8 @@ import { sessionMiddleware } from "./security/middleware.js";
 const setupSocketIO = (server) => {
   const io = new Server(server);
 
-  // Apply the session middleware to the Socket.IO engine
   io.engine.use(sessionMiddleware);
 
-  // Handle Socket.IO connections
   io.on("connection", (socket) => {
     console.log("A user connected");
 
