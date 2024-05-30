@@ -9,12 +9,12 @@
   import Signup from "../pages/Signup/Signup.svelte";
   import User from "../pages/User/User.svelte";
   import Movies from "../pages/Movies/Movies.svelte";
-  import Admin from "../pages/Admin/Admin.svelte";
+  import MoviesAdmin from "../pages/MoviesAdmin/MoviesAdmin.svelte";
   import PrivateRoute from "../util/PrivateRoute.svelte";
   import { user, isAuthenticated } from "../stores/store.js";
   import Theme from "../pages/Theme/Theme.svelte";
   import { checkLoginStatus } from "../util/auth";
-  import { initializeThemeSocket, applyTheme } from "../util/socketTheme.js";
+  import { initializeThemeSocket } from "../util/socketTheme.js";
 
   let socket;
   let isAdmin = false;
@@ -105,7 +105,7 @@
         {/if}
 
         {#if $user && $user.is_admin}
-          <Link to="/admin">Admin</Link>
+          <Link to="/movies_admin">Movies Admin</Link>
         {/if}
 
         {#if $user && $user.is_admin}
@@ -145,28 +145,16 @@
       <Signup />
     </Route>
 
-    <!-- <Route path="/users">
-      <User />
-    </Route> -->
-
     <PrivateRoute path="/users" let:location primary={false}>
       <User />
     </PrivateRoute>
-
-    <!-- <Route path="/movies">
-      <Movies />
-    </Route> -->
 
     <PrivateRoute path="/movies" let:location primary={false}>
       <Movies />
     </PrivateRoute>
 
-    <!-- <Route path="/admin">
-      <Admin />
-    </Route> -->
-
-    <PrivateRoute path="/admin" let:location primary={false}>
-      <Admin />
+    <PrivateRoute path="/movies_admin" let:location primary={false}>
+      <MoviesAdmin />
     </PrivateRoute>
   </main>
 </Router>

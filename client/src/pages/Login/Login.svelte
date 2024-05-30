@@ -35,7 +35,7 @@
           toast.success("Thank you for logging in!");
 
           if (data.user.is_admin) {
-            navigate("/admin");
+            navigate("/movies_admin");
           } else {
             navigate("/movies");
           }
