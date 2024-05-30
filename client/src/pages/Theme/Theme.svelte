@@ -16,6 +16,8 @@
       applyTheme(theme);
     });
 
+    sendTheme(theme);
+
     return () => {
       disconnectSocket();
     };
@@ -25,7 +27,6 @@
     if (isAdmin) {
       theme = theme === "dark" ? "light" : "dark";
       console.log("Toggling theme:", theme);
-      
       sendTheme(theme);
   
       fetch("/api/theme", {
