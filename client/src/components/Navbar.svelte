@@ -105,11 +105,11 @@
         {/if}
 
         {#if $user && $user.is_admin}
-          <Link to="/movies_admin">Movies Admin</Link>
+        <Link to="/users">Users</Link>
         {/if}
-
+        
         {#if $user && $user.is_admin}
-          <Link to="/users">Users</Link>
+          <Link to="/movies_admin">Movies Admin</Link>
         {/if}
 
         {#if $user}
