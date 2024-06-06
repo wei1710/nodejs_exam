@@ -1,5 +1,6 @@
 <script>
   import { onMount } from "svelte";
+  import ThemeStyle from "../../components/Theme/ThemeStyle.svelte";
 
   let currentPath;
 
@@ -7,6 +8,8 @@
     currentPath = window.location.pathname;
   });
 </script>
+
+<ThemeStyle />
 
 {#if currentPath === "/"}
 <div class="home-container">
@@ -98,7 +101,7 @@
 
   .feature-item img {
     border-radius: 10px;
-    border: 2px solid #bdfffd;
+    border: 2px solid var(--border-color);
     width: 70%;
     height: 70%;
     margin-bottom: 10px;

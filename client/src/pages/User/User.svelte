@@ -1,8 +1,6 @@
 <script>
   import { onMount } from "svelte";
   import Navbar from "../../components/Navbar.svelte";
-  import { theme } from "../../stores/themeStore.js";
-  import { initializeTheme, toggleThemeMode } from "../../util/theme.js";
   import ThemeStyle from "../../components/Theme/ThemeStyle.svelte";
   import { writable } from "svelte/store";
 
@@ -11,21 +9,6 @@
   let editingUser = writable(null); // store user being edited
   let newEmail = writable("");
   let newUsername = writable("");
-
-  // initialize theme
-  let currentTheme = $theme;
-  export let isAdmin = false;
-
-  //-- *********************************** THEME *********************** --//
-  onMount(() => {
-    const cleanup = initializeTheme(isAdmin, currentTheme, (newTheme) => {
-      currentTheme = newTheme;
-    });
-
-    fetchUsers();
-
-    return cleanup;
-  });
 
   //-- *********************************** GET USERS *********************** --//
   const fetchUsers = async () => {

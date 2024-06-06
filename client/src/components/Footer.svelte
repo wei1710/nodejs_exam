@@ -1,6 +1,9 @@
 <script>
   import { theme } from "../stores/themeStore.js";
+  import ThemeStyle from "./Theme/ThemeStyle.svelte";
 </script>
+
+<ThemeStyle />
 
 <footer class={$theme}>
   <div class="footer-container">
@@ -11,8 +14,8 @@
 
 <style>
   footer {
-    background-color: #242424;
-    color: #bdfffd;
+    background-color: var(--background-color);
+    color: var(--text-color);
     padding: 20px 0;
     text-align: center;
     position: relative;

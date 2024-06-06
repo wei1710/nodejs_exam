@@ -3,8 +3,6 @@
   import { writable } from "svelte/store";
   import Navbar from "../../components/Navbar.svelte";
   import toast from "svelte-french-toast";
-  import { theme } from "../../stores/themeStore.js";
-  import { initializeTheme, toggleThemeMode } from "../../util/theme.js";
   import ThemeStyle from "../../components/Theme/ThemeStyle.svelte";
 
   let movies = [];
@@ -14,21 +12,6 @@
   let newTitle = writable("");
   let newYear = writable("");
   let newGenre = writable("");
-
-  // initialize theme
-  let currentTheme = $theme;
-  export let isAdmin = false;
-
-  //-- *********************************** THEME *********************** --//
-  onMount(() => {
-    const cleanup = initializeTheme(isAdmin, currentTheme, (newTheme) => {
-      currentTheme = newTheme;
-    });
-
-    fetchMovies();
-
-    return cleanup;
-  });
 
   //-- *********************************** GET MOVIES *********************** --//
   const fetchMovies = async () => {

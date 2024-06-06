@@ -4,27 +4,10 @@
   import Navbar from "../../components/Navbar.svelte";
   import MovieDetail from "../../components/Movies/MovieDetail.svelte";
   import { selectedMovie } from "../../stores/store.js";
-  import { theme } from "../../stores/themeStore.js";
-  import { initializeTheme, toggleThemeMode } from "../../util/theme.js";
   import ThemeStyle from "../../components/Theme/ThemeStyle.svelte";
 
   let movies = [];
   let searchQuery = writable(""); // bind search input
-
-  // initialize theme
-  let currentTheme = $theme;
-  export let isAdmin = false;
-
-  //-- *********************************** THEME *********************** --//
-  onMount(() => {
-    const cleanup = initializeTheme(isAdmin, currentTheme, (newTheme) => {
-      currentTheme = newTheme;
-    });
-
-    fetchMovies();
-
-    return cleanup;
-  });
 
   //-- *********************************** GET ALL MOVIES *********************** --//
   const fetchMovies = async () => {

@@ -2,6 +2,7 @@
   :root[data-theme="light"] {
     --background-color: #ffffff;
     --text-color: #242424;
+    --border-color: #242424;
 
     /* USER TABLE */
     --user-table-color: #ccc651;
@@ -38,6 +39,7 @@
   :root[data-theme="dark"] {
     --background-color: #242424;
     --text-color: #bdfffd;
+    --border-color: #bdfffd;
 
     /* USER TABLE */
     --user-table-color: #ccc651;
