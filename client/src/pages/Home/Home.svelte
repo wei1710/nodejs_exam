@@ -12,11 +12,11 @@
 <div class="home-container">
   <div class="welcome-section">
     <h1>Welcome to Movie Portal</h1>
-    <p>Find comprehensive information about movies</p>
-  </div>
-
-  <div class="introduction-section">
-    <p>
+    </div>
+    
+    <div class="introduction-section">
+      <p>Find comprehensive information about movies</p><br>
+      <p>
       At Movie Portal, you can explore detailed movie information including titles, year, genre, ratings, and plots. 
       Use the navigation above to get started.
     </p>
@@ -76,6 +76,7 @@
   }
 
   .features-section {
+    margin-top: 5%;
     margin-bottom: 30px;
   }
 
@@ -104,6 +105,6 @@
   }
 
   .cta-section {
-    margin-bottom: 30px;
+    margin-top: 5%;
   }
 </style>
