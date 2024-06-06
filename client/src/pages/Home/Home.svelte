@@ -23,35 +23,30 @@
   </div>
 
   <div class="features-section">
-    <h2>Our Features</h2>
+    <h2 id="h2_title">Our Features</h2>
     <div class="features-grid">
       <div class="feature-item">
-        <img src="/icons/title-icon.png" alt="Title Icon">
-        <h3>Movie Titles</h3>
-        <p>Discover titles from various genres and eras.</p>
-      </div>
-      <div class="feature-item">
-        <img src="/icons/cover-icon.png" alt="Image Cover Icon">
+        <img src="/images/home/movie_icon.png" alt="Movie Cover Icon">
         <h3>Image Covers</h3>
-        <p>View high-quality cover images of your favorite movies.</p>
+        <p>View high quality cover images of your favorite movies.</p>
       </div>
       <div class="feature-item">
-        <img src="/icons/year-icon.png" alt="Year Icon">
+        <img src="/images/home/year_icon.png" alt="Year Icon">
         <h3>Release Year</h3>
-        <p>Find out the release year of movies and track cinematic history.</p>
+        <p>Find out the release year of movies and track your favorite movies.</p>
       </div>
       <div class="feature-item">
-        <img src="/icons/genre-icon.png" alt="Genre Icon">
-        <h3>Genres</h3>
-        <p>Explore movies by different genres to suit your mood.</p>
+        <img src="/images/home/title_icon.png" alt="Title Icon">
+        <h3>Titles</h3>
+        <p>Explore movies by different titles and find your favorite movies.</p>
       </div>
       <div class="feature-item">
-        <img src="/icons/rating-icon.png" alt="Rating Icon">
+        <img src="/images/home/rating_icon.png" alt="Rating Icon">
         <h3>Ratings</h3>
-        <p>See ratings from IMDb to help you choose what to watch next.</p>
+        <p>See ratings from IMDB to help you choose what to watch next.</p>
       </div>
       <div class="feature-item">
-        <img src="/icons/plot-icon.png" alt="Plot Icon">
+        <img src="/images/home/plot_icon.png" alt="Plot Icon">
         <h3>Plots</h3>
         <p>Read plot summaries to get a quick overview of movies.</p>
       </div>
@@ -84,6 +79,10 @@
     margin-bottom: 30px;
   }
 
+  #h2_title {
+    margin-bottom: 20px;
+  }
+
   .features-grid {
     display: flex;
     justify-content: center;
@@ -97,8 +96,10 @@
   }
 
   .feature-item img {
-    width: 50px;
-    height: 50px;
+    border-radius: 10px;
+    border: 2px solid #bdfffd;
+    width: 70%;
+    height: 70%;
     margin-bottom: 10px;
   }
 
