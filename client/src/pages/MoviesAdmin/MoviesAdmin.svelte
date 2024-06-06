@@ -3,6 +3,9 @@
   import { writable } from "svelte/store";
   import Navbar from "../../components/Navbar.svelte";
   import toast from "svelte-french-toast";
+  import { theme } from "../../stores/themeStore.js";
+  import { initializeTheme, toggleThemeMode } from "../../util/theme.js";
+  import ThemeStyle from "../../components/Theme/ThemeStyle.svelte";
 
   let movies = [];
   let searchQuery = writable(""); // bind search input
@@ -11,6 +14,21 @@
   let newTitle = writable("");
   let newYear = writable("");
   let newGenre = writable("");
+
+  // initialize theme
+  let currentTheme = $theme;
+  export let isAdmin = false;
+
+  //-- *********************************** THEME *********************** --//
+  onMount(() => {
+    const cleanup = initializeTheme(isAdmin, currentTheme, (newTheme) => {
+      currentTheme = newTheme;
+    });
+
+    fetchMovies();
+
+    return cleanup;
+  });
 
   //-- *********************************** GET MOVIES *********************** --//
   const fetchMovies = async () => {
@@ -116,6 +134,7 @@
 </script>
 
 <Navbar />
+<ThemeStyle />
 
 <!-- *********************************** SEARCH BAR *********************** -->
 <div>
@@ -196,10 +215,10 @@
   #add-movie-input,
   #add-movie-button {
     margin-left: 99%;
-    border: 2px solid #ccc651;
+    border: 2px solid var(--admin-movie-border-color);
     border-radius: 5px;
-    background-color: #333;
-    color: #bdfffd;
+    background-color: var(--admin-movie-card-bg-color);
+    color: var(--admin-movie-text-color);
     box-sizing: border-box;
     padding: 10px;
   }
@@ -226,8 +245,8 @@
   }
 
   #add-movie-button:hover {
-    background-color: #bdfffd;
-    color: #242424;
+    background-color: var(--admin-movie-text-color);
+    color: var(--admin-movie-bg-color);
   }
 
   /*-- *********************************** MOVIE *********************** --*/
@@ -240,8 +259,8 @@
   }
 
   .movie-card {
-    background-color: #242424;
-    border: 2px solid #ccc651;
+    background-color: var(--admin-movie-bg-color);
+    border: 2px solid var(--admin-movie-border-color);
     border-radius: 10px;
     padding: 20px;
     width: 22%;
@@ -293,10 +312,10 @@
   .cancel-button {
     width: 30%;
     padding: 10px;
-    background-color: #333;
+    background-color: var(--admin-movie-card-bg-color);
     border: none;
     border-radius: 5px;
-    color: #bdfffd;
+    color: var(--admin-movie-text-color);
     font-size: 16px;
     cursor: pointer; 
   }
@@ -304,8 +323,8 @@
   .edit-button:hover,
   .save-button:hover,
   .cancel-button:hover {
-    background-color: #bdfffd;
-    color: #242424;
+    background-color: var(--admin-movie-text-color);
+    color: var(--admin-movie-bg-color);
   }
 
   .delete-button {
@@ -331,10 +350,10 @@
     width: 100%;
     padding: 10px;
     margin-bottom: 10px;
-    border: 2px solid #ccc651;
+    border: 2px solid var(--admin-movie-border-color);
     border-radius: 5px;
-    background-color: #333;
-    color: #bdfffd;
+    background-color: var(--admin-movie-bg-color);
+    color: var(--admin-movie-text-color);
   }
 
   .button-container {

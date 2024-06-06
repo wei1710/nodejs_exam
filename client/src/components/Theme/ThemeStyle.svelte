@@ -20,6 +20,13 @@
     --movie-border-color: #ccc651;
     --movie-card-bg-color: #f0f0f0;
     --movie-card-hover-bg-color: #e0e0e0;
+
+    /* ADMIN MOVIE ELEMENTS */
+    --admin-movie-bg-color: #ffffff;
+    --admin-movie-text-color: #242424;
+    --admin-movie-border-color: #ccc651;
+    --admin-movie-card-bg-color: #f0f0f0;
+    --admin-movie-card-hover-bg-color: #e0e0e0;
   }
 
   :root[data-theme="dark"] {
@@ -43,6 +50,13 @@
     --movie-border-color: #ccc651;
     --movie-card-bg-color: #333333;
     --movie-card-hover-bg-color: #444444;
+
+    /* ADMIN MOVIE ELEMENTS */
+    --admin-movie-bg-color: #242424;
+    --admin-movie-text-color: #bdfffd;
+    --admin-movie-border-color: #ccc651;
+    --admin-movie-card-bg-color: #333333;
+    --admin-movie-card-hover-bg-color: #444444;
   }
 
   :global(body) {
