@@ -22,7 +22,7 @@
 
   .footer-container {
     display: flex;
-    margin-top: 12%;
+    margin-top: 5%;
     flex-direction: column;
     align-items: center;
     gap: 10px;

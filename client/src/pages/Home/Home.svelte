@@ -62,7 +62,7 @@
 
 <style>
   .home-container {
-    margin-top: 5%;
+    margin-top: 7%;
     text-align: center;
     padding: 50px;
   }
@@ -106,5 +106,6 @@
 
   .cta-section {
     margin-top: 5%;
+    margin-bottom: -4%;
   }
 </style>
