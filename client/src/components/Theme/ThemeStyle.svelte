@@ -21,6 +21,12 @@
     --movie-card-bg-color: #f0f0f0;
     --movie-card-hover-bg-color: #e0e0e0;
 
+    /* MOVIE MODAL */
+    --movie-modal-button-bg-color: #f0f0f0;
+    --movie-modal-button-text-color: #242424;
+    --movie-modal-button-hover-bg-color: #242424;
+    --movie-modal-button-hover-text-color: #ffffff;
+
     /* ADMIN MOVIE ELEMENTS */
     --admin-movie-bg-color: #ffffff;
     --admin-movie-text-color: #242424;
@@ -50,6 +56,12 @@
     --movie-border-color: #ccc651;
     --movie-card-bg-color: #333333;
     --movie-card-hover-bg-color: #444444;
+
+    /* MOVIE MODAL */
+    --movie-modal-button-bg-color: #333333;
+    --movie-modal-button-text-color: #bdfffd;
+    --movie-modal-button-hover-bg-color: #bdfffd;
+    --movie-modal-button-hover-text-color: #242424;
 
     /* ADMIN MOVIE ELEMENTS */
     --admin-movie-bg-color: #242424;

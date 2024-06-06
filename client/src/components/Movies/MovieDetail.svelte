@@ -1,9 +1,24 @@
 <script>
   import { selectedMovie } from "../../stores/store.js";
-  import { onDestroy } from "svelte";
+  import { onDestroy, onMount } from "svelte";
+  import { theme } from "../../stores/themeStore.js";
+  import { initializeTheme, toggleThemeMode } from "../../util/theme.js";
   import ThemeStyle from "../../components/Theme/ThemeStyle.svelte";
 
   let movie;
+
+  // initialize theme
+  let currentTheme = $theme;
+  export let isAdmin = false;
+
+  //-- *********************************** THEME *********************** --//
+  onMount(() => {
+    const cleanup = initializeTheme(isAdmin, currentTheme, (newTheme) => {
+      currentTheme = newTheme;
+    });
+
+    return cleanup;
+  });
 
   const unsubscribe = selectedMovie.subscribe((value) => {
     movie = value;
@@ -58,9 +73,9 @@
   }
 
   .modal-content {
-    background: #242424;
-    color: #bdfffd;
-    border: 2px solid #ccc651;
+    background: var(--movie-bg-color);
+    color: var(--movie-text-color);
+    border: 2px solid var(--movie-border-color);
     padding: 5%;
     border-radius: 10px;
     max-width: 55%;
@@ -98,16 +113,16 @@
   .modal-content button {
     margin-left: 92%;
     border-radius: 5px;
-    background-color: #333;
-    color: #bdfffd;
+    background-color: var(--movie-modal-button-bg-color);
+    color: var(--movie-modal-button-text-color);
     box-sizing: border-box;
     padding: 10px;
     transition: background-color 0.2s;
   }
 
   .modal-content button:hover {
-    background-color: #bdfffd;
-    color: #242424;
+    background-color: var(--movie-modal-button-hover-bg-color);
+    color: var(--movie-modal-button-hover-text-color);
   }
 
   @keyframes fadeIn {
