@@ -1,6 +1,7 @@
 <script>
   import { selectedMovie } from "../../stores/store.js";
   import { onDestroy } from "svelte";
+  import ThemeStyle from "../../components/Theme/ThemeStyle.svelte";
 
   let movie;
 
@@ -18,6 +19,7 @@
 </script>
 
 {#if movie}
+<ThemeStyle />
   <div class="backdrop">
     <div class="modal-content">
       <button on:click={closeModal}>Close</button>

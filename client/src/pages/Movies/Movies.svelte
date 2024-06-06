@@ -4,9 +4,27 @@
   import Navbar from "../../components/Navbar.svelte";
   import MovieDetail from "../../components/Movies/MovieDetail.svelte";
   import { selectedMovie } from "../../stores/store.js";
+  import { theme } from "../../stores/themeStore.js";
+  import { initializeTheme, toggleThemeMode } from "../../util/theme.js";
+  import ThemeStyle from "../../components/Theme/ThemeStyle.svelte";
 
   let movies = [];
   let searchQuery = writable(""); // bind search input
+
+  // initialize theme
+  let currentTheme = $theme;
+  export let isAdmin = false;
+
+  //-- *********************************** THEME *********************** --//
+  onMount(() => {
+    const cleanup = initializeTheme(isAdmin, currentTheme, (newTheme) => {
+      currentTheme = newTheme;
+    });
+
+    fetchMovies();
+
+    return cleanup;
+  });
 
   //-- *********************************** GET ALL MOVIES *********************** --//
   const fetchMovies = async () => {
@@ -44,6 +62,7 @@
 </script>
 
 <Navbar />
+<ThemeStyle />
 
 <!-- *********************************** SEARCH BAR *********************** --> 
 <div>
@@ -81,10 +100,10 @@
     margin-top: 7%;
     width: 20%;
     margin-left: 99%;
-    border: 2px solid #ccc651;
+    border: 2px solid var(--movie-border-color);
     border-radius: 5px;
-    background-color: #333;
-    color: #bdfffd;
+    background-color: var(--movie-card-bg-color);
+    color: var(--movie-text-color);
     box-sizing: border-box;
     padding: 10px;
   }
@@ -100,8 +119,8 @@
 
   .movie-card {
     position: relative;
-    background-color: #242424;
-    border: 2px solid #CCC651;
+    background-color: var(--movie-card-bg-color);
+    border: 2px solid var(--movie-border-color);
     border-radius: 10px;
     padding: 20px;
     width: 22%;

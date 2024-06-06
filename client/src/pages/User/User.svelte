@@ -1,7 +1,9 @@
 <script>
   import { onMount } from "svelte";
-  import { fetchGet } from "../../util/api";
   import Navbar from "../../components/Navbar.svelte";
+  import { theme } from "../../stores/themeStore.js";
+  import { initializeTheme, toggleThemeMode } from "../../util/theme.js";
+  import ThemeStyle from "../../components/Theme/ThemeStyle.svelte";
   import { writable } from "svelte/store";
 
   let users = [];
@@ -9,6 +11,21 @@
   let editingUser = writable(null); // store user being edited
   let newEmail = writable("");
   let newUsername = writable("");
+
+  // initialize theme
+  let currentTheme = $theme;
+  export let isAdmin = false;
+
+  //-- *********************************** THEME *********************** --//
+  onMount(() => {
+    const cleanup = initializeTheme(isAdmin, currentTheme, (newTheme) => {
+      currentTheme = newTheme;
+    });
+
+    fetchUsers();
+
+    return cleanup;
+  });
 
   //-- *********************************** GET USERS *********************** --//
   const fetchUsers = async () => {
@@ -87,6 +104,7 @@
 </script>
 
 <Navbar />
+<ThemeStyle />
 
 <!-- *********************************** SEARCH BAR *********************** -->
 <div>
@@ -155,10 +173,10 @@
     margin-top: 7%;
     width: 20%;
     margin-left: 99%;
-    border: 2px solid #ccc651;
+    border: 2px solid var(--user-border-color);
     border-radius: 5px;
-    background-color: #333;
-    color: #bdfffd;
+    background-color: var(--user-bg-color);
+    color: var(--user-text-color);
     box-sizing: border-box;
     padding: 10px;
   }
@@ -175,11 +193,11 @@
   th,
   td {
     padding: 10px;
-    border: 2px solid #ccc651;
+    border: 2px solid var(--user-table-color);
   }
 
   th {
-    background-color: #333;
+    background-color: var(--user-table-header-color);
   }
 
   /* First row */
@@ -205,10 +223,10 @@
   .cancel-button {
     width: 30%;
     padding: 10px;
-    background-color: #333;
+    background-color: var(--user-button-color);
     border: none;
     border-radius: 5px;
-    color: #bdfffd;
+    color: var(--user-text-color);
     font-size: 16px;
     cursor: pointer; 
   }
@@ -216,8 +234,8 @@
   .edit-button:hover,
   .save-button:hover,
   .cancel-button:hover {
-    background-color: #bdfffd;
-    color: #242424;
+    background-color: var(--user-button-hover-color);
+    color: var(--user-bg-color);
   }
 
   .delete-button {
@@ -243,10 +261,10 @@
     width: 100%;
     padding: 10px;
     margin-bottom: 10px;
-    border: 2px solid #ccc651;
+    border: 2px solid var(--user-border-color);
     border-radius: 5px;
-    background-color: #333;
-    color: #bdfffd;
+    background-color: var(--user-bg-color);
+    color: var(--user-text-color);
   }
 
   .button-container {

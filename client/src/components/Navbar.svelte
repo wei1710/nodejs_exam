@@ -15,6 +15,7 @@
   import Theme from "../pages/Theme/Theme.svelte";
   import { checkLoginStatus } from "../util/auth";
   import { initializeThemeSocket } from "../util/socketTheme.js";
+  import { theme } from "../stores/themeStore.js";
 
   let socket;
   let isAdmin = false;
@@ -83,7 +84,7 @@
 <Router>
   <header>
     <!-- --*********************************** TOP LEFT LOGO ***********************-- -->
-    <nav>
+    <nav class={$theme}>
       <div id="left-side-nav">
         <img
           src="/images/logo2-2-removebg.png"
@@ -107,7 +108,7 @@
         {#if $user && $user.is_admin}
         <Link to="/users">Users</Link>
         {/if}
-        
+
         {#if $user && $user.is_admin}
           <Link to="/movies_admin">Movies Admin</Link>
         {/if}
@@ -158,6 +159,3 @@
     </PrivateRoute>
   </main>
 </Router>
-
-<style>
-</style>

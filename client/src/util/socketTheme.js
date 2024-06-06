@@ -1,4 +1,5 @@
 import io from "socket.io-client";
+import { setTheme } from "../stores/themeStore.js";
 
 let socket;
 
@@ -16,6 +17,7 @@ function initializeThemeSocket() {
 
 function applyTheme(theme) {
   document.documentElement.setAttribute("data-theme", theme);
+  setTheme(theme);
 }
 
 function sendTheme(theme) {
