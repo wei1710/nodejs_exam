@@ -11,8 +11,8 @@
     --user-bg-color: #ffffff;
     --user-text-color: #242424;
     --user-border-color: #ccc651;
-    --user-button-color: #ccc651;
-    --user-button-hover-color: #a19e5b;
+    --user-button-color: #f0f0f0;
+    --user-button-hover-color: #242424;
 
     /* MOVIE ELEMENTS */
     --movie-bg-color: #ffffff;
@@ -37,7 +37,7 @@
 
   :root[data-theme="dark"] {
     --background-color: #242424;
-    --text-color: #ffffff;
+    --text-color: #bdfffd;
 
     /* USER TABLE */
     --user-table-color: #ccc651;
@@ -48,7 +48,7 @@
     --user-text-color: #bdfffd;
     --user-border-color: #ccc651;
     --user-button-color: #333333;
-    --user-button-hover-color: #242424;
+    --user-button-hover-color: #bdfffd;
 
     /* MOVIE ELEMENTS */
     --movie-bg-color: #242424;

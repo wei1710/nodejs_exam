@@ -235,7 +235,7 @@
   .save-button:hover,
   .cancel-button:hover {
     background-color: var(--user-button-hover-color);
-    color: var(--user-bg-color);
+    color: var(--user-button-color);
   }
 
   .delete-button {
