@@ -3,7 +3,6 @@ import { setTheme } from "../stores/themeStore.js";
 
 export function toggleTheme(currentTheme) {
   const newTheme = currentTheme === "dark" ? "light" : "dark";
-  console.log("Toggling theme:", newTheme);
   applyTheme(newTheme);
   sendTheme(newTheme);
   setTheme(newTheme);
@@ -33,7 +32,6 @@ export function initializeTheme(isAdmin, currentTheme, onThemeChange) {
   const socket = initializeThemeSocket();
 
   socket.on("server-sends-theme", (data) => {
-    console.log("Received theme from server:", data);
     currentTheme = data.theme;
     applyTheme(currentTheme);
     if (onThemeChange) onThemeChange(currentTheme);

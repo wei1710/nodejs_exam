@@ -8,7 +8,6 @@ function initializeThemeSocket() {
     socket = io("http://localhost:8080");
 
     socket.on("server-sends-theme", (data) => {
-      console.log("Received theme from server:", data);
       applyTheme(data.theme);
     });
   }

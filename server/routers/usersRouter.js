@@ -68,7 +68,7 @@ router.delete("/api/users/:email", async (req, res) => {
   try {
     const deleteUser = await db.users.deleteOne({ email: email });
     if (deleteUser.deletedCount === 0) {
-      return re.status(404).json({ error: "User not found" });
+      return res.status(404).json({ error: "User not found" });
     }
     res.json({ message: "User deleted succesfully" });
   } catch(error) {

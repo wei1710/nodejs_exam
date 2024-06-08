@@ -3,7 +3,6 @@ import db from "./connection.js";
 async function resetDatabase() {
 
   await db.users.deleteMany({});
-  console.log("Users collection cleared");
 
   //-- *********************************** USER *********************** --//
   const testUsers = [
@@ -164,12 +163,10 @@ async function resetDatabase() {
   ];
 
   await db.users.insertMany(testUsers);
-  console.log("Test users inserted");
 
   //-- *********************************** MOVIES *********************** --//
 
   await db.movies.deleteMany({});
-  console.log("Movies collection cleared");
 
   const testMovies = [
     {
@@ -491,7 +488,6 @@ async function resetDatabase() {
   ];
 
   await db.movies.insertMany(testMovies);
-  console.log("Test movies inserted");
 }
 
 resetDatabase().then(() => {

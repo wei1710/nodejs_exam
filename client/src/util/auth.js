@@ -11,20 +11,17 @@ export async function checkLoginStatus() {
     if (response.ok) {
       const data = await response.json();
       if (data.isLoggedin) {
-        console.log("checkLoginStatus: user is logged in", data.user);
         isAuthenticated.set(true);
         user.set(data.user);
         localStorage.setItem("isAuthenticated", "true");
         localStorage.setItem("user", JSON.stringify(data.user));
       } else {
-        console.log("checkLoginStatus: user is not logged in");
         isAuthenticated.set(false);
         user.set(null);
         localStorage.removeItem("isAuthenticated");
         localStorage.removeItem("user");
       }
     } else {
-      console.log("checkLoginStatus: response not OK");
       isAuthenticated.set(false);
       user.set(null);
       localStorage.removeItem("isAuthenticated");

@@ -6,7 +6,6 @@
   import ThemeStyle from "../../components/Theme/ThemeStyle.svelte";
   import { get } from "svelte/store";
 
-  export let socket;
   export let isAdmin = false;
 
   let currentTheme = get(theme);

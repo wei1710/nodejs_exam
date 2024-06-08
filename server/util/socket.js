@@ -1,7 +1,7 @@
 import { Server } from "socket.io";
 import { sessionMiddleware } from "./security/middleware.js";
 
-let currentTheme = "dark"
+let currentTheme = "dark";
 
 const setupSocketIO = (server) => {
   const io = new Server(server);
@@ -26,7 +26,6 @@ const setupSocketIO = (server) => {
           console.error("Failed to save theme to session", error);
           return;
         }
-        console.log(`Session theme updated to: ${data.theme}`);
       });
     });
 

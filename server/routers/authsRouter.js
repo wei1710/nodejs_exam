@@ -194,10 +194,8 @@ router.post("/api/login", async (req, res) => {
 
 //-- *************************************** HAS LOGIN *********************** --//
 router.get("/api/has_login", async (req, res) => {
-  console.log("Session:", req.session);
 
   const sessionId = req.session.session_id;
-  console.log("Session ID in request:", sessionId);
 
   if (!sessionId) {
     return res.status(401).json({ isLoggedin: false });
@@ -205,12 +203,11 @@ router.get("/api/has_login", async (req, res) => {
 
   try {
     const user = await db.users.findOne({ session_id: sessionId });
-    console.log("User found with session ID:", user);
 
     if (user) {
       return res.status(200).json({
-         isLoggedin: true, 
-         user: { 
+        isLoggedin: true, 
+        user: { 
           username: user.username, 
           email: user.email, 
           is_admin: user.is_admin 

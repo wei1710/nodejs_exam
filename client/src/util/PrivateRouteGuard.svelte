@@ -8,13 +8,11 @@
 	const location = useLocation();
 
 	$: if (!$user) {
-		console.log(`PrivateRouteGuard: user is null, navigate to "/"`);
 		navigate("/", {
 			state: { from: $location.pathname },
 			replace: true,
 		});
 	} else if (isAdmin && !$user.isAdmin) {
-		console.log(`PrivateRouteGuard: user is not admin, navigate to "/"`);
 		navigate("/", {
 			replace: true,
 		});

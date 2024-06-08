@@ -27,22 +27,17 @@
   }
 
   afterUpdate(() => {
-    console.log("afterUpdate: storing current path", window.location.pathname);
     localStorage.setItem("currentPath", window.location.pathname);
   });
 
   onMount(async () => {
-    console.log("onMount: checking login status");
     await checkLoginStatus();
 
     socket = initializeThemeSocket();
 
     const storedPath = localStorage.getItem("currentPath");
-    console.log("onMount: stored path", storedPath);
-    console.log("onMount: current path", window.location.pathname);
 
     if (storedPath && storedPath !== window.location.pathname && $isAuthenticated) {
-      console.log("onMount: navigating to stored path", storedPath);
       navigate(storedPath, { replace: true });
     }
   });
@@ -67,7 +62,6 @@
         isAuthenticated.set(false);
         toast.success("Sign out successful!");
         navigate("/");
-        console.log("Sign out successful");
       } else {
         toast.error("Failed to sign out!");
         console.error("Sign out failed: ", response.statusText);
@@ -94,7 +88,7 @@
         <!-- <h2>Movie Portal</h2> -->
         <Link to="/">Home</Link>
         {#if $user && $user.is_admin}
-        <Theme {socket} isAdmin={true}/>
+        <Theme isAdmin={true}/>
         {/if}
       </div>
 

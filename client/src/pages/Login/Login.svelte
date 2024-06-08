@@ -1,5 +1,4 @@
 <script>
-  import { fetchGet, fetchPost } from "../../util/api";
   import { navigate } from "svelte-navigator";
   import { user, isAuthenticated } from "../../stores/store.js";
   import { toast, Toaster } from "svelte-french-toast";
@@ -26,7 +25,6 @@
 
       if (response.ok) {
         const data = await response.json();
-        console.log("Login response data:", data);
         if (data.message === "Login successful!") {
           isAuthenticated.set(true);
           user.set(true);
@@ -53,7 +51,6 @@
   }
 
   function handleLoginError(responseData, status) {
-    console.log("Login error response data:", responseData);
     switch (status) {
       case 401:
         toast.error(responseData.error || "Invalid username or password!");
