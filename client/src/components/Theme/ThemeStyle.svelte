@@ -23,7 +23,7 @@
     --movie-card-hover-bg-color: #e0e0e0;
 
     /* MOVIE MODAL */
-    --movie-modal-button-bg-color: #f0f0f0;
+    --movie-modal-button-bg-color: #ccc651;
     --movie-modal-button-text-color: #242424;
     --movie-modal-button-hover-bg-color: #242424;
     --movie-modal-button-hover-text-color: #ffffff;
