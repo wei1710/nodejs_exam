@@ -12,7 +12,7 @@
     --user-bg-color: #ffffff;
     --user-text-color: #242424;
     --user-border-color: #ccc651;
-    --user-button-color: #f0f0f0;
+    --user-button-color: #ccc651;
     --user-button-hover-color: #242424;
 
     /* MOVIE ELEMENTS */
@@ -32,8 +32,9 @@
     --admin-movie-bg-color: #ffffff;
     --admin-movie-text-color: #242424;
     --admin-movie-border-color: #ccc651;
-    --admin-movie-card-bg-color: #f0f0f0;
+    --admin-movie-card-bg-color: #ccc651;
     --admin-movie-card-hover-bg-color: #e0e0e0;
+    --admin-movie-search-bar-bg-color: #ffffff;
   }
 
   :root[data-theme="dark"] {

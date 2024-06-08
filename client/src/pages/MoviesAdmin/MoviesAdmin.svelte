@@ -195,7 +195,16 @@
 <style>
   /*-- *********************************** SEARCH BAR, ADD MOVIE INPUT + BUTTON *********************** --*/
   #search-bar,
-  #add-movie-input,
+  #add-movie-input {
+    margin-left: 99%;
+    border: 2px solid var(--admin-movie-border-color);
+    border-radius: 5px;
+    background-color: var(--admin-movie-search-bar-bg-color);
+    color: var(--admin-movie-text-color);
+    box-sizing: border-box;
+    padding: 10px;
+  }
+
   #add-movie-button {
     margin-left: 99%;
     border: 2px solid var(--admin-movie-border-color);
