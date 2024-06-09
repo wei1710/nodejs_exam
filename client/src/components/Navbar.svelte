@@ -13,7 +13,7 @@
   import PrivateRoute from "../util/PrivateRoute.svelte";
   import { user, isAuthenticated } from "../stores/store.js";
   import Theme from "../pages/Theme/Theme.svelte";
-  import { checkLoginStatus } from "../util/auth";
+  import { checkLoginStatus } from "../util/auth.js";
   import { initializeThemeSocket } from "../util/socketTheme.js";
   import { theme } from "../stores/themeStore.js";
 
