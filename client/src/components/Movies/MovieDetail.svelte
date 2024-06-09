@@ -2,7 +2,7 @@
   import { selectedMovie } from "../../stores/store.js";
   import { onDestroy, onMount } from "svelte";
   import { theme } from "../../stores/themeStore.js";
-  import { initializeTheme, toggleThemeMode } from "../../util/theme.js";
+  import { initializeTheme } from "../../util/theme.js";
   import ThemeStyle from "../../components/Theme/ThemeStyle.svelte";
 
   let movie;
