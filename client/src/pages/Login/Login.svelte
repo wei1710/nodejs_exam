@@ -1,7 +1,7 @@
 <script>
   import { navigate } from "svelte-navigator";
   import { user, isAuthenticated } from "../../stores/store.js";
-  import { toast, Toaster } from "svelte-french-toast";
+  import { toast } from "svelte-french-toast";
   import { onMount } from "svelte";
   import { checkLoginStatus } from "../../util/auth";
 

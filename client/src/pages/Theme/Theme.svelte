@@ -1,9 +1,7 @@
 <script>
   import { onMount } from "svelte";
-  import { initializeThemeSocket, applyTheme, sendTheme, disconnectSocket } from "../../util/socketTheme.js";
   import { theme } from "../../stores/themeStore.js";
   import { initializeTheme, toggleThemeMode } from "../../util/theme.js";
-  import ThemeStyle from "../../components/Theme/ThemeStyle.svelte";
   import { get } from "svelte/store";
 
   export let isAdmin = false;

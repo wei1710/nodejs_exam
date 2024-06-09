@@ -1,6 +1,5 @@
 import { user, isAuthenticated } from "../stores/store.js";
 import { toast } from "svelte-french-toast";
-import { navigate } from "svelte-navigator";
 
 export async function checkLoginStatus() {
   try {

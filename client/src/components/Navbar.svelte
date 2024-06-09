@@ -140,15 +140,15 @@
       <Signup />
     </Route>
 
-    <PrivateRoute path="/users" let:location primary={false}>
+    <PrivateRoute path="/users" primary={false}>
       <User />
     </PrivateRoute>
 
-    <PrivateRoute path="/movies" let:location primary={false}>
+    <PrivateRoute path="/movies" primary={false}>
       <Movies />
     </PrivateRoute>
 
-    <PrivateRoute path="/movies_admin" let:location primary={false}>
+    <PrivateRoute path="/movies_admin" primary={false}>
       <MoviesAdmin />
     </PrivateRoute>
   </main>

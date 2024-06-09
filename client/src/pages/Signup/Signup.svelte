@@ -1,6 +1,6 @@
 <script>
   import { navigate } from "svelte-navigator";
-  import { toast, Toaster } from "svelte-french-toast";
+  import { toast } from "svelte-french-toast";
 
   async function signup(event) {
     event.preventDefault();
