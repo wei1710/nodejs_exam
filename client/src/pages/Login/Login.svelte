@@ -6,7 +6,6 @@
   import { checkLoginStatus } from "../../util/auth";
 
   async function login(event) {
-    event.preventDefault();
     checkLoginStatus();
 
     const formData = new FormData(event.target);
