@@ -3,7 +3,6 @@
   import { navigate } from "svelte-navigator";
 
   async function forgotPassword(event) {
-    event.preventDefault();
     
     const formData = new FormData(event.target);
     const email = formData.get("email");
