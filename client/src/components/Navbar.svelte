@@ -120,35 +120,35 @@
     </nav>
   </header>
   <main>
-    <Route path="/" primary={false}>
+    <Route path="/">
       <Home />
     </Route>
 
-    <Route path="/login" primary={false}>
+    <Route path="/login">
       <Login />
     </Route>
 
-    <Route path="/forgot_password" primary={false}>
+    <Route path="/forgot_password">
       <ForgotPassword />
     </Route>
 
-    <Route path="/reset_password" primary={false}>
+    <Route path="/reset_password">
       <ResetPassword />
     </Route>
 
-    <Route path="/signup" primary={false}>
+    <Route path="/signup">
       <Signup />
     </Route>
 
-    <PrivateRoute path="/users" primary={false}>
+    <PrivateRoute path="/users">
       <User />
     </PrivateRoute>
 
-    <PrivateRoute path="/movies" primary={false}>
+    <PrivateRoute path="/movies">
       <Movies />
     </PrivateRoute>
 
-    <PrivateRoute path="/movies_admin" primary={false}>
+    <PrivateRoute path="/movies_admin">
       <MoviesAdmin />
     </PrivateRoute>
   </main>
