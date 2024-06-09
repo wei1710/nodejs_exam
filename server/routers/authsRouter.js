@@ -15,6 +15,99 @@ const router = Router();
 import { Resend } from "resend";
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+//-- *************************************** HAS LOGIN *********************** --//
+router.get("/api/has_login", async (req, res) => {
+
+  const sessionId = req.session.session_id;
+
+  if (!sessionId) {
+    return res.status(401).json({ isLoggedin: false });
+  }
+
+  try {
+    const user = await db.users.findOne({ session_id: sessionId });
+
+    if (user) {
+      return res.status(200).json({
+        isLoggedin: true, 
+        user: { 
+          username: user.username, 
+          email: user.email, 
+          is_admin: user.is_admin 
+        } 
+      });
+    } else {
+      return res.status(401).json({ isLoggedin: false });
+    }
+  } catch (error) {
+    console.error("Error checking login status: ", error);
+    return res.status(500).json({ error: "Internal server error!" });
+  }
+});
+
+//-- *************************************** VERIFY *********************** --//
+router.get("/api/verify", async (req, res) => {
+  const { uid } = req.query;
+
+  try {
+    const user = await db.users.findOne({ verification_token: uid });
+
+    if (!user) {
+      return res.status(400).json({ error: "Verification link is invalid!" });
+    }
+
+    const { verification_key, email, expiration_timestamp } = user;
+
+    if (!verification_key || !email || !expiration_timestamp) {
+      return res.status(400).json({ error: "Verification link is invalid!" });
+    }
+
+    const currentTime = Date.now();
+
+    if (currentTime > expiration_timestamp) {
+      return res.status(400).send(expiredVerifyEmailTemplate);
+    }
+
+    if (verification_key === `verify_${uid}`) {
+      await db.users.updateOne({ verification_token: uid }, { $set: { verified: true } });
+
+      return res.status(200).send(emailVerifiedTemplate);
+    } else {
+      return res.status(400).json({ error: "Invalid token!" });
+    }
+  } catch (error) {
+    console.error("Error verifying email: ", error);
+    return res.status(500).json({ error: "Internal server error!" });
+  }
+});
+
+//-- *************************************** LOGOUT *********************** --//
+router.get("/api/logout", async (req, res) => {
+  const sessionId = req.session.session_id;
+
+  try {
+    const result = await db.users.updateOne({ session_id: sessionId }, { $set: { session_id: null } });
+
+    if (result.modifiedCount === 0) {
+      console.error("No user found with the given session ID");
+      return res.status(404).send("No user found with the given session ID");
+    }
+
+    req.session.destroy((error) => {
+      if (error) {
+        console.error("Error destroying session: ", error);
+        return res.status(500).send("Error logging out");
+      } else {
+        res.clearCookie("connect.sid"); // Clear the session cookie
+        return res.status(200).json({ message: "Log out successful!" });
+      }
+    });
+  } catch (error) {
+    console.error("Error logging out: ", error);
+    return res.status(500).send("Error logging out");
+  }
+});
+
 //-- *************************************** SIGNUP *********************** --//
 router.post("/api/signup", async (req, res) => {
   const { username, password, email } = req.body;
@@ -99,42 +192,6 @@ router.post("/api/signup", async (req, res) => {
   }
 });
 
-//-- *************************************** VERIFY *********************** --//
-router.get("/api/verify", async (req, res) => {
-  const { uid } = req.query;
-
-  try {
-    const user = await db.users.findOne({ verification_token: uid });
-
-    if (!user) {
-      return res.status(400).json({ error: "Verification link is invalid!" });
-    }
-
-    const { verification_key, email, expiration_timestamp } = user;
-
-    if (!verification_key || !email || !expiration_timestamp) {
-      return res.status(400).json({ error: "Verification link is invalid!" });
-    }
-
-    const currentTime = Date.now();
-
-    if (currentTime > expiration_timestamp) {
-      return res.status(400).send(expiredVerifyEmailTemplate);
-    }
-
-    if (verification_key === `verify_${uid}`) {
-      await db.users.updateOne({ verification_token: uid }, { $set: { verified: true } });
-
-      return res.status(200).send(emailVerifiedTemplate);
-    } else {
-      return res.status(400).json({ error: "Invalid token!" });
-    }
-  } catch (error) {
-    console.error("Error verifying email: ", error);
-    return res.status(500).json({ error: "Internal server error!" });
-  }
-});
-
 //-- *************************************** LOGIN *********************** --//
 router.post("/api/login", async (req, res) => {
   const { username, password } = req.body;
@@ -188,36 +245,6 @@ router.post("/api/login", async (req, res) => {
     }
   } catch (error) {
     console.error("Error comparing passwords: ", error + " !");
-    return res.status(500).json({ error: "Internal server error!" });
-  }
-});
-
-//-- *************************************** HAS LOGIN *********************** --//
-router.get("/api/has_login", async (req, res) => {
-
-  const sessionId = req.session.session_id;
-
-  if (!sessionId) {
-    return res.status(401).json({ isLoggedin: false });
-  }
-
-  try {
-    const user = await db.users.findOne({ session_id: sessionId });
-
-    if (user) {
-      return res.status(200).json({
-        isLoggedin: true, 
-        user: { 
-          username: user.username, 
-          email: user.email, 
-          is_admin: user.is_admin 
-        } 
-      });
-    } else {
-      return res.status(401).json({ isLoggedin: false });
-    }
-  } catch (error) {
-    console.error("Error checking login status: ", error);
     return res.status(500).json({ error: "Internal server error!" });
   }
 });
@@ -290,33 +317,6 @@ router.post("/api/reset_password", async (req, res) => {
   } catch (eror) {
     console.error("Error resetting password: ", eror);
     return res.status(500).json({ error: "Internal server error!" });
-  }
-});
-
-//-- *************************************** LOGOUT *********************** --//
-router.get("/api/logout", async (req, res) => {
-  const sessionId = req.session.session_id;
-
-  try {
-    const result = await db.users.updateOne({ session_id: sessionId }, { $set: { session_id: null } });
-
-    if (result.modifiedCount === 0) {
-      console.error("No user found with the given session ID");
-      return res.status(404).send("No user found with the given session ID");
-    }
-
-    req.session.destroy((error) => {
-      if (error) {
-        console.error("Error destroying session: ", error);
-        return res.status(500).send("Error logging out");
-      } else {
-        res.clearCookie("connect.sid"); // Clear the session cookie
-        return res.status(200).json({ message: "Log out successful!" });
-      }
-    });
-  } catch (error) {
-    console.error("Error logging out: ", error);
-    return res.status(500).send("Error logging out");
   }
 });
 
