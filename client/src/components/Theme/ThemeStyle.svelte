@@ -54,7 +54,7 @@
 
     --input-text-color: var(--color-cyan);
     --text-color: var(--color-cyan);
-    --dark-text-color: var(--color-dark);
+    --text-color-mode: var(--color-dark);
     
     --table-header-color: var(--color-dark-grey);
 
