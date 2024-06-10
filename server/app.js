@@ -45,8 +45,8 @@ app.use(usersRouter);
 import moviesRouter from "./routers/moviesRouter.js";
 app.use(moviesRouter);
 
-import socketRouter from "./routers/socketRouter.js";
-app.use(socketRouter);
+import socketsRouter from "./routers/socketsRouter.js";
+app.use(socketsRouter);
 
 app.get("*", (req, res) => {
   res.sendFile(path.resolve("../client/dist/index.html"));

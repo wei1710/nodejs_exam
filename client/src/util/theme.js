@@ -7,7 +7,7 @@ export function toggleTheme(currentTheme) {
   sendTheme(newTheme);
   setTheme(newTheme);
 
-  fetch("/api/theme", {
+  fetch("/api/themes", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
