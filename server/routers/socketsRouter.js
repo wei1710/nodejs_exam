@@ -1,7 +1,7 @@
 import { Router } from "express";
 const router = Router();
 
-router.post("/api/theme", (req, res) => {
+router.post("/api/themes", (req, res) => {
   req.session.theme = req.body.theme;
   req.session.save(error => {
     if (error) {
