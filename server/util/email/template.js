@@ -93,7 +93,7 @@ const emailVerifiedTemplate = `
     <div class="container">
       <h1>Email Verified Successfully!</h1>
       <p>Your email has been successfully verified!</p>
-      <button onclick="window.location.href='/'">Welcome</button>
+      <button onclick="window.location.href='/login'">Welcome</button>
     </div>
   </body>
 </html>
