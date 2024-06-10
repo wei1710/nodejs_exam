@@ -73,9 +73,9 @@
   }
 
   .modal-content {
-    background: var(--movie-bg-color);
-    color: var(--movie-text-color);
-    border: 2px solid var(--movie-border-color);
+    background: var(--background-color);
+    border: 2px solid var(--border-color);
+    color: var(--text-color);
     padding: 5%;
     border-radius: 10px;
     max-width: 55%;
@@ -113,16 +113,16 @@
   .modal-content button {
     margin-left: 92%;
     border-radius: 5px;
-    background-color: var(--movie-modal-button-bg-color);
-    color: var(--movie-modal-button-text-color);
+    background-color: var(--button-color);
+    color: var(--text-color);
     box-sizing: border-box;
     padding: 10px;
     transition: background-color 0.2s;
   }
 
   .modal-content button:hover {
-    background-color: var(--movie-modal-button-hover-bg-color);
-    color: var(--movie-modal-button-hover-text-color);
+    background-color: var(--button-hover-color);
+    color: var(--text-color-mode);
   }
 
   @keyframes fadeIn {

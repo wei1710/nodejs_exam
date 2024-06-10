@@ -3,9 +3,11 @@
   import { user, isAuthenticated } from "../../stores/store.js";
   import { toast } from "svelte-french-toast";
   import { onMount } from "svelte";
-  import { checkLoginStatus } from "../../util/auth";
+  import { checkLoginStatus } from "../../util/auth.js";
 
   async function login(event) {
+    event.preventDefault();
+    
     checkLoginStatus();
 
     const formData = new FormData(event.target);

@@ -83,10 +83,10 @@
     margin-top: 7%;
     width: 20%;
     margin-left: 99%;
-    border: 2px solid var(--movie-border-color);
+    border: 2px solid var(--border-color);
     border-radius: 5px;
-    background-color: var(--movie-card-bg-color);
-    color: var(--movie-text-color);
+    background-color: var(--background-color);
+    color: var(--text-color);
     box-sizing: border-box;
     padding: 10px;
   }
@@ -102,8 +102,8 @@
 
   .movie-card {
     position: relative;
-    background-color: var(--movie-card-bg-color);
-    border: 2px solid var(--movie-border-color);
+    background-color: var(--background-color);
+    border: 2px solid var(--border-color);
     border-radius: 10px;
     padding: 20px;
     width: 22%;

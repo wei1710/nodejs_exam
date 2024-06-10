@@ -197,20 +197,20 @@
   #search-bar,
   #add-movie-input {
     margin-left: 99%;
-    border: 2px solid var(--admin-movie-border-color);
+    border: 2px solid var(--border-color);
     border-radius: 5px;
-    background-color: var(--admin-movie-search-bar-bg-color);
-    color: var(--admin-movie-text-color);
+    background-color: var(--background-color);
+    color: var(--text-color);
     box-sizing: border-box;
     padding: 10px;
   }
 
   #add-movie-button {
     margin-left: 99%;
-    border: 2px solid var(--admin-movie-border-color);
+    border: 2px solid var(--border-color);
     border-radius: 5px;
-    background-color: var(--admin-movie-card-bg-color);
-    color: var(--admin-movie-text-color);
+    background-color: var(--button-color);
+    color: var(--text-color);
     box-sizing: border-box;
     padding: 10px;
   }
@@ -237,8 +237,8 @@
   }
 
   #add-movie-button:hover {
-    background-color: var(--admin-movie-text-color);
-    color: var(--admin-movie-bg-color);
+    background-color: var(--button-hover-color);
+    color: var(--text-color-mode);
   }
 
   /*-- *********************************** MOVIE *********************** --*/
@@ -251,8 +251,8 @@
   }
 
   .movie-card {
-    background-color: var(--admin-movie-bg-color);
-    border: 2px solid var(--admin-movie-border-color);
+    background-color: var(--background-color);
+    border: 2px solid var(--border-color);
     border-radius: 10px;
     padding: 20px;
     width: 22%;
@@ -304,10 +304,10 @@
   .cancel-button {
     width: 30%;
     padding: 10px;
-    background-color: var(--admin-movie-card-bg-color);
+    background-color: var(--button-color);
     border: none;
     border-radius: 5px;
-    color: var(--admin-movie-text-color);
+    color: var(--text-color);
     font-size: 16px;
     cursor: pointer; 
   }
@@ -315,13 +315,12 @@
   .edit-button:hover,
   .save-button:hover,
   .cancel-button:hover {
-    background-color: var(--admin-movie-text-color);
-    color: var(--admin-movie-bg-color);
+    background-color: var(--button-hover-color);
+    color: var(--text-color-mode);
   }
 
   .delete-button {
-    background-color: red;
-    color: white;
+    background-color: var(--delete-button-color);
     border: none;
     padding: 7px 15px;
     cursor: pointer;
@@ -329,7 +328,7 @@
   }
 
   .delete-button:hover {
-    background-color: darkred;
+    background-color: var(--delete-button-hover-color);
   }
 
   /*-- *********************************** EDIT FORM *********************** --*/
@@ -342,10 +341,10 @@
     width: 100%;
     padding: 10px;
     margin-bottom: 10px;
-    border: 2px solid var(--admin-movie-border-color);
+    border: 2px solid var(--border-color);
     border-radius: 5px;
-    background-color: var(--admin-movie-bg-color);
-    color: var(--admin-movie-text-color);
+    background-color: var(--background-color);
+    color: var(--text-color);
   }
 
   .button-container {

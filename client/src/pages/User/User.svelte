@@ -156,10 +156,10 @@
     margin-top: 7%;
     width: 20%;
     margin-left: 99%;
-    border: 2px solid var(--user-border-color);
+    border: 2px solid var(--border-color);
     border-radius: 5px;
-    background-color: var(--user-bg-color);
-    color: var(--user-text-color);
+    background-color: var(--background-color);
+    color: var(--text-color);
     box-sizing: border-box;
     padding: 10px;
   }
@@ -176,11 +176,11 @@
   th,
   td {
     padding: 10px;
-    border: 2px solid var(--user-table-color);
+    border: 2px solid var(--border-color);
   }
 
   th {
-    background-color: var(--user-table-header-color);
+    background-color: var(--table-header-color);
   }
 
   /* First row */
@@ -206,10 +206,10 @@
   .cancel-button {
     width: 30%;
     padding: 10px;
-    background-color: var(--user-button-color);
+    background-color: var(--button-color);
     border: none;
     border-radius: 5px;
-    color: var(--user-text-color);
+    color: var(--text-color);
     font-size: 16px;
     cursor: pointer; 
   }
@@ -217,21 +217,20 @@
   .edit-button:hover,
   .save-button:hover,
   .cancel-button:hover {
-    background-color: var(--user-button-hover-color);
-    color: var(--user-button-color);
+    background-color: var(--button-hover-color);
+    color: var(--text-color-mode);
   }
 
   .delete-button {
-    background-color: red;
-    color: white;
+    background-color: var(--delete-button-color);
     border: none;
     padding: 8px 15px;
-    cursor: pointer;
     border-radius: 4px;
-  }
-
+    }
+    
   .delete-button:hover {
-    background-color: darkred;
+    cursor: pointer;
+    background-color: var(--delete-button-hover-color);
   }
 
   /*-- *********************************** EDIT FORM *********************** --*/
@@ -244,10 +243,10 @@
     width: 100%;
     padding: 10px;
     margin-bottom: 10px;
-    border: 2px solid var(--user-border-color);
+    border: 2px solid var(--border-color);
     border-radius: 5px;
-    background-color: var(--user-bg-color);
-    color: var(--user-text-color);
+    background-color: var(--background-color);
+    color: var(--text-color);
   }
 
   .button-container {

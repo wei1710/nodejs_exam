@@ -1,77 +1,65 @@
 <style>
   :root[data-theme="light"] {
-    --background-color: #ffffff;
-    --text-color: #242424;
-    --border-color: #242424;
+    --color-white: #ffffff;
+    --color-off-white: #f0f0f0;
+    --color-dark: #242424;
+    --color-dark-grey: #333333; 
+    --color-light-grey: #c2c2c2ce;
+    --color-yellow: #ccc651;
+    --color-cyan: #bdfffd;
+    --color-red: #ff0000;
+    --color-dark-red: #6e0101;
 
-    /* USER TABLE */
-    --user-table-color: #ccc651;
-    --user-table-header-color: #c2c2c2ce;
+    --background-color: var(--color-white);
+    --border-color: var(--color-yellow);
 
-    /* USER ELEMENTS */
-    --user-bg-color: #ffffff;
-    --user-text-color: #242424;
-    --user-border-color: #ccc651;
-    --user-button-color: #ccc651;
-    --user-button-hover-color: #242424;
+    --button-color: var(--color-yellow);
+    --button-hover-color: var(--color-dark);
+    --delete-button-color: var(--color-red);
+    --delete-button-hover-color: var(--color-dark-red);
 
-    /* MOVIE ELEMENTS */
-    --movie-bg-color: #ffffff;
-    --movie-text-color: #242424;
-    --movie-border-color: #ccc651;
-    --movie-card-bg-color: #f0f0f0;
-    --movie-card-hover-bg-color: #e0e0e0;
+    --input-text-color: var(--color-cyan);
+    --text-color: var(--color-dark);
+    --light-text-color: var(--color-off-white);
+    --text-color-mode: var(--color-yellow);
+    
+    --table-header-color: var(--color-light-grey);
 
-    /* MOVIE MODAL */
-    --movie-modal-button-bg-color: #ccc651;
-    --movie-modal-button-text-color: #242424;
-    --movie-modal-button-hover-bg-color: #242424;
-    --movie-modal-button-hover-text-color: #ffffff;
+    --navbar-color: var(--color-dark-grey);
+    --navbar-hover-color: var(--color-white);
+  }
 
-    /* ADMIN MOVIE ELEMENTS */
-    --admin-movie-bg-color: #ffffff;
-    --admin-movie-text-color: #242424;
-    --admin-movie-border-color: #ccc651;
-    --admin-movie-card-bg-color: #ccc651;
-    --admin-movie-card-hover-bg-color: #e0e0e0;
-    --admin-movie-search-bar-bg-color: #ffffff;
+  :global(body) {
+    background-color: var(--background-color);
+    color: var(--text-color);
   }
 
   :root[data-theme="dark"] {
-    --background-color: #242424;
-    --text-color: #bdfffd;
-    --border-color: #bdfffd;
+    --color-dark: #242424;
+    --color-dark-grey: #333333; 
+    --color-light-grey: #c2c2c2ce;
+    --color-grey: #444444;
+    --color-yellow: #ccc651;
+    --color-cyan: #bdfffd;
+    --color-red: #ff0000;
+    --color-dark-red: #8B0000;
 
-    /* USER TABLE */
-    --user-table-color: #ccc651;
-    --user-table-header-color: #333333;
+    --background-color: var(--color-dark);
+    --border-color: var(--color-yellow);
 
-    /* USER ELEMENTS */
-    --user-bg-color: #333333;
-    --user-text-color: #bdfffd;
-    --user-border-color: #ccc651;
-    --user-button-color: #333333;
-    --user-button-hover-color: #bdfffd;
+    --button-color: var(--color-dark-grey);
+    --button-hover-color: var(--color-cyan);
+    --delete-button-color: var(--color-red);
+    --delete-button-hover-color: var(--color-dark-red);
 
-    /* MOVIE ELEMENTS */
-    --movie-bg-color: #242424;
-    --movie-text-color: #bdfffd;
-    --movie-border-color: #ccc651;
-    --movie-card-bg-color: #333333;
-    --movie-card-hover-bg-color: #444444;
+    --input-text-color: var(--color-cyan);
+    --text-color: var(--color-cyan);
+    --dark-text-color: var(--color-dark);
+    
+    --table-header-color: var(--color-dark-grey);
 
-    /* MOVIE MODAL */
-    --movie-modal-button-bg-color: #333333;
-    --movie-modal-button-text-color: #bdfffd;
-    --movie-modal-button-hover-bg-color: #bdfffd;
-    --movie-modal-button-hover-text-color: #242424;
-
-    /* ADMIN MOVIE ELEMENTS */
-    --admin-movie-bg-color: #242424;
-    --admin-movie-text-color: #bdfffd;
-    --admin-movie-border-color: #ccc651;
-    --admin-movie-card-bg-color: #333333;
-    --admin-movie-card-hover-bg-color: #444444;
+    --navbar-color: var(--color-dark-grey);
+    --navbar-hover-color: var(--color-white);
   }
 
   :global(body) {
