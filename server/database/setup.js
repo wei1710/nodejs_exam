@@ -2,9 +2,10 @@ import db from "./connection.js";
 
 async function resetDatabase() {
 
+  //-- *********************************** USER *********************** --//
+  
   await db.users.deleteMany({});
 
-  //-- *********************************** USER *********************** --//
   const testUsers = [
     {
       username: "JohnDoe",
