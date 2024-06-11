@@ -8,7 +8,7 @@ const validateUsername = (username) => {
 
 //-- ********************************* PASSWORD REQUIREMENTS *********************** --//
 const validatePassword = (password) => {
-  const regex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*\d)[A-Za-z\d!@#$%^&*]{8,13}$/;
+  const regex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*\d)[A-Za-z\d!@#$%^&*]{8,71}$/;
   return regex.test(password);
 };
 
