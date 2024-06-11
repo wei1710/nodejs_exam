@@ -7,7 +7,7 @@
 
   async function login(event) {
     event.preventDefault();
-    
+
     checkLoginStatus();
 
     const formData = new FormData(event.target);
@@ -34,7 +34,7 @@
           toast.success("Thank you for logging in!");
 
           if (data.user.is_admin) {
-            navigate("/movies_admin");
+            navigate("/admin_movies");
           } else {
             navigate("/movies");
           }

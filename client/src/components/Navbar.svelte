@@ -104,7 +104,7 @@
         {/if}
 
         {#if $user && $user.is_admin}
-          <Link to="/movies_admin">Movies Admin</Link>
+          <Link to="/admin_movies">Movies Admin</Link>
         {/if}
 
         {#if $user}
@@ -148,7 +148,7 @@
       <Movies />
     </PrivateRoute>
 
-    <PrivateRoute path="/movies_admin">
+    <PrivateRoute path="/admin_movies">
       <MoviesAdmin />
     </PrivateRoute>
   </main>
